@@ -10,14 +10,8 @@ const userSchema = new mongoose.Schema({
   registrationNumber: {
     type: String,
     required: [true, "Registration number is required!"],
-    unique: [true, "Registration number already exists!"],
     trim: true,
-    lowercase: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Invalid email")
-      }
-    }
+    uppercase: true,
   },
   password: {
     type: String,
@@ -26,60 +20,102 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    maxLength: [100, "Max length: 100"],
     trim: true
   },
-  lastname: {
-    type: String,
-    maxLength: [100, "Max length: 100"],
-    trim: true
-  },
-  cnic: {
-    type: String,
-    length: [13, "Invalid CNIC!"]
-  },
-  simNumber: {
-    type: String,
-    length: [11, "Invalid No!"]
-  },
-  simStatus: {
-    type: String,
-    enum: ['notAlloted', 'unactivated', 'activated'],
-    default: 'notAlloted'
-  },
-  address: {
+  department: {
     type: String,
     trim: true
+  },
+  email: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error("Invalid email")
+      }
+    }
+  },
+  sector: {
+    type: String,
+    trim: true
+  },
+  supervisorName: {
+    type: String,
+    trim: true
+  },
+  officeEmail: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error("Invalid email")
+      }
+    }
+  },
+  contactNumber: {
+    type: String,
+    trim: true
+  },
+  graduationYear: {
+    type: String,
+    trim: true
+  },
+  positionHeld: {
+    type: String,
+    trim: true
+  },
+  dateOfJoining: {
+    type: String,
+    trim: true
+  },
+  organizationName: {
+    type: String,
+    trim: true
+  },
+  supervisorPosition: {
+    type: String,
+    trim: true
+  },
+  organizationName: {
+    type: String,
+    trim: true
+  },
+  isPasswordComputerGenerated: {
+    type: Boolean,
+    default: true
   }
-})
+});
 
-userSchema.pre("save", async function (next) {
-  let user = this;
-  if (user.isModified('password')) {
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(user.password, salt);
-    user.password = hash;
-  }
-  next();
-})
+// userSchema.pre("save", async function (next) {
+//   let user = this;
+//   if (user.isModified('password')) {
+//     const salt = await bcrypt.genSalt(10);
+//     const hash = await bcrypt.hash(user.password, salt);
+//     user.password = hash;
+//   }
+//   next();
+// })
 
-userSchema.methods.generateToken = function () {
-  let user = this;
-  const userObj = { _id: user._id.toHexString(), email: user.email };
-  const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1d' });
-  return token;
-}
+// userSchema.methods.generateToken = function () {
+//   let user = this;
+//   const userObj = { _id: user._id.toHexString(), email: user.email };
+//   const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1d' });
+//   return token;
+// }
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
   let user = this;
-  const match = await bcrypt.compare(enteredPassword, user.password);
+  // const match = await bcrypt.compare(enteredPassword, user.password);
+  const match = enteredPassword === user.password;
   return match;
-}
+};
 
-userSchema.statics.isEmailTaken = async function (enteredEmail) {
-  const user = await this.findOne({ email: enteredEmail });
-  return !!user;
-}
+// userSchema.statics.isEmailTaken = async function (enteredEmail) {
+//   const user = await this.findOne({ email: enteredEmail });
+//   return !!user;
+// }
 
 
 const User = mongoose.model("User", userSchema);

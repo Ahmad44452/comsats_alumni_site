@@ -1,0 +1,159 @@
+import styled from "styled-components";
+
+export const StyledAdminPanel = styled.div`
+  min-height: 100vh;
+  color: #000;
+  padding: 0 3rem;
+`;
+
+export const StyledAdminPanelGreeting = styled.h1`
+  font-size: 2rem;
+`;
+
+export const StyledAdminPanelTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+
+  td, th {
+    padding: 8px;
+    text-align: center;
+  }
+
+  tbody tr{
+    font-size: 1.8rem;
+    border-bottom: 1px solid #B2B2B2;
+    color: #3C4048;
+  }
+
+  tbody a{
+    &:link,&:visited{
+      text-decoration: none;
+      color: blue;
+    }
+  }
+
+  th {
+    padding-top: .5rem;
+    padding-bottom: 0rem;
+    color: #B2B2B2;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+`;
+
+export const StyledAdminPanelTableSvg = styled.div`
+  display: inline-block;
+  &:not(:last-child){
+    margin-right: 2rem;
+  }
+  
+  svg{
+    cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+
+    &:hover{
+      color: ${({ hoverColor }) => hoverColor};
+    }
+  }
+`;
+
+export const StyledAdminPanelAddButton = styled.button`
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  border: none;
+  outline: none;
+  background-color: #2243ae;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  svg{
+    width: 3.5rem;
+    height: 3.5rem;
+    path{
+      stroke: #fff !important;
+    }
+  }
+`;
+
+export const StyledAdminPanelDeleteContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.7);
+  height: 100vh;
+  width: 100vw;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StyledAdminPanelDelete = styled.div`
+  
+`;
+
+export const StyledAdminPanelDeleteContent = styled.div`
+  background-color: #fff;
+  position: relative;
+  border-radius: 3px;
+  padding: 3rem 7rem;
+`;
+
+
+export const StyledAdminPanelClose = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  svg{
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+
+    &:hover{
+
+      path{
+        stroke: red;
+      }
+      
+    }
+  }
+`;
+
+export const StyledAdminPanelDeleteText = styled.div`
+  font-size: 2rem;
+  margin: 1rem 0 4rem 0;
+`;
+
+export const StyledAdminPanelDeleteButtonContainer = styled.div`
+  display: flex;
+`;
+
+export const StyledAdminPanelDeleteButton = styled.button`
+  outline: none;
+  border: none;
+  flex-grow: 1;
+  padding: 1rem 0;
+  background-color: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+  color: ${({ color }) => color};
+  border: ${({ color }) => `1px solid ${color};`};
+  text-transform: uppercase;
+  border-radius: 5px;
+
+  &:hover{
+    background-color:  ${({ color }) => color};
+    color: #fff;
+  }
+
+  &:not(:last-child){
+    margin-right: 10px;
+  }
+`;

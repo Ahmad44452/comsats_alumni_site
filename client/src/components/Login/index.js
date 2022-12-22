@@ -1,17 +1,45 @@
 import { useState } from 'react';
 import * as LoginStyled from '../../Styles/Login.styled';
+import axios from 'axios';
+import useLoading from '../../hooks/useLoading';
 
+import { setDataAdmin } from '../../store/slices/adminSlice';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
 
   const [isAdminLogin, setIsAdminLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const setGlobalLoading = useLoading();
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`Email: ${email}`)
-    console.log(`Password: ${password}`)
+    try {
+      setError(null);
+
+      setGlobalLoading(true);
+
+      let res;
+      if (isAdminLogin) {
+        res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/admin/login`, { email, password });
+        dispatch(setDataAdmin(res.data));
+      }
+      // console.log(res.data);
+
+      setGlobalLoading(false);
+    } catch (err) {
+      console.log(err)
+      setGlobalLoading(false);
+      if (err.response)
+        setError(err.response.data.message);
+      else
+        setError('Could not reach server!');
+    }
+
   }
 
   return (
@@ -25,6 +53,7 @@ const Login = () => {
           <LoginStyled.LoginStyledInput type={"email"} placeholder="Email" required onChange={(e) => setEmail(e.currentTarget.value)} />
           <LoginStyled.LoginStyledInput type={"password"} placeholder="Password" required onChange={(e) => setPassword(e.currentTarget.value)} />
 
+          <div style={{ fontSize: '1.5rem', color: 'red' }} >{error}</div>
           <LoginStyled.LoginStyledSubmitButton type="submit">
             Login
           </LoginStyled.LoginStyledSubmitButton>
