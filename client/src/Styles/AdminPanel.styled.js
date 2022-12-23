@@ -108,7 +108,7 @@ export const StyledAdminPanelDeleteContent = styled.div`
 
 export const StyledAdminPanelClose = styled.div`
   position: absolute;
-  right: 0;
+  right: 2px;
   top: 0;
 
   svg{

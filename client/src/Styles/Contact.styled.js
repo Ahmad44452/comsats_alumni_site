@@ -54,16 +54,21 @@ export const StyledContactInputGroup = styled.div`
 `;
 
 export const StyledContactInputText = styled.input`
+  
+  &,&:focus{
+    outline: none;
+    border: none;
+    color: #fff;
+  }
+
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #fff !important;
   font-size: 1.8rem;
   padding: 1rem 2rem;
   width: 55rem;
-  &,&:focus{
-    outline: none;
-    color: #fff;
-  }
+  
+  
 
   &:hover,&:focus{
     border: 1px solid #fff;

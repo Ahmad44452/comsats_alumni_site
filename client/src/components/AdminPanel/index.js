@@ -1,13 +1,19 @@
 import * as StyledAdmin from '../../Styles/AdminPanel.styled';
 import { useSelector } from 'react-redux';
-
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { AiFillEye } from 'react-icons/ai';
-import { GrAdd, GrFormClose } from 'react-icons/gr';
+import { GrAdd } from 'react-icons/gr';
+import { useState } from 'react';
+
+
+import AdminPanelDeletePopup from './AdminPanelDeletePopup';
+import AdminPanelAddStudentPopup from './AdminPanelAddStudentPopup';
 
 const AdminPanel = () => {
 
   const adminData = useSelector(state => state.adminSlice.data);
+  const [isDelPopupShowing, setIsDelPopupShowing] = useState(false);
+  const [isAddPopupShowing, setIsAddPopupShowing] = useState(false);
 
   return (
     (
@@ -46,7 +52,7 @@ const AdminPanel = () => {
               <td>asdawqf</td>
               <td>
                 <StyledAdmin.StyledAdminPanelTableSvg hoverColor={'red'}>
-                  <RiDeleteBin6Line />
+                  <RiDeleteBin6Line onClick={() => setIsDelPopupShowing(true)} />
                 </StyledAdmin.StyledAdminPanelTableSvg>
 
                 <StyledAdmin.StyledAdminPanelTableSvg hoverColor={'#227C70'}>
@@ -58,53 +64,16 @@ const AdminPanel = () => {
 
         </StyledAdmin.StyledAdminPanelTable>
 
+        {
+          isDelPopupShowing && <AdminPanelDeletePopup setIsDelPopupShowing={setIsDelPopupShowing} />
+        }
+
+        {
+          isAddPopupShowing && <AdminPanelAddStudentPopup setIsAddPopupShowing={setIsAddPopupShowing} />
+        }
 
 
-
-
-
-
-        <StyledAdmin.StyledAdminPanelDeleteContainer>
-
-          <StyledAdmin.StyledAdminPanelDelete>
-
-            <StyledAdmin.StyledAdminPanelDeleteContent>
-
-              <StyledAdmin.StyledAdminPanelClose>
-                <GrFormClose />
-              </StyledAdmin.StyledAdminPanelClose>
-
-
-
-
-
-              <StyledAdmin.StyledAdminPanelDeleteText>
-                Are you sure you want to delete?
-              </StyledAdmin.StyledAdminPanelDeleteText>
-
-
-              <StyledAdmin.StyledAdminPanelDeleteButtonContainer>
-                <StyledAdmin.StyledAdminPanelDeleteButton color={'#2243ae'}>Cancel</StyledAdmin.StyledAdminPanelDeleteButton>
-                <StyledAdmin.StyledAdminPanelDeleteButton color={'#DC0000'}>Delete</StyledAdmin.StyledAdminPanelDeleteButton>
-              </StyledAdmin.StyledAdminPanelDeleteButtonContainer>
-
-
-
-            </StyledAdmin.StyledAdminPanelDeleteContent>
-
-
-
-          </StyledAdmin.StyledAdminPanelDelete>
-
-        </StyledAdmin.StyledAdminPanelDeleteContainer>
-
-
-
-
-
-
-
-        <StyledAdmin.StyledAdminPanelAddButton>
+        <StyledAdmin.StyledAdminPanelAddButton onClick={() => setIsAddPopupShowing(true)}>
           <GrAdd />
         </StyledAdmin.StyledAdminPanelAddButton>
 
