@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 const AppRoutes = () => {
 
   const adminAuth = useSelector(state => state.adminSlice.adminAuth);
-  console.log(adminAuth)
+  const alumniAuth = useSelector(state => state.alumniSlice.alumniAuth);
 
   return (
     <BrowserRouter>
@@ -24,9 +24,9 @@ const AppRoutes = () => {
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
-        <Route path='/login' element={(adminAuth && (<Navigate to='/adminpanel' replace={true} />)) || (<Login />)} />
+        <Route path='/login' element={(alumniAuth && (<Navigate to='/alumnipanel' replace={true} />)) || (adminAuth && (<Navigate to='/adminpanel' replace={true} />)) || (<Login />)} />
         <Route path='/adminpanel' element={(adminAuth && <AdminPanel />) || (!adminAuth && <Navigate to='/login' replace={true} />)} />
-        <Route path='/alumni' element={<AlumniPanel />} />
+        <Route path='/alumnipanel' element={(alumniAuth && <AlumniPanel />) || (!alumniAuth && <Navigate to='/login' replace={true} />)} />
       </Routes>
       <Footer />
     </BrowserRouter>

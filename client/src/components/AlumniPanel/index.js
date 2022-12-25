@@ -1,6 +1,13 @@
+import AlumniPanelChangePass from "./AlumniPanelChangePass";
+import AlumniPanelSubmitInfo from './AlumniPanelSubmitInfo';
+import { useSelector } from "react-redux";
+
 const AdminPanel = () => {
+
+  const isPasswordComputerGenerated = useSelector(state => state.alumniSlice.data.isPasswordComputerGenerated)
+
   return (
-    <h1>Admin Panel</h1>
+    isPasswordComputerGenerated ? <AlumniPanelChangePass /> : <AlumniPanelSubmitInfo />
   )
 }
 

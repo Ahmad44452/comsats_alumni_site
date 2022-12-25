@@ -78,7 +78,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  organizationName: {
+  countryName: {
     type: String,
     trim: true
   },
@@ -112,10 +112,10 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
   return match;
 };
 
-// userSchema.statics.isEmailTaken = async function (enteredEmail) {
-//   const user = await this.findOne({ email: enteredEmail });
-//   return !!user;
-// }
+userSchema.statics.isRegistrationNumberTaken = async function (enteredRegNo) {
+  const user = await this.findOne({ registrationNumber: enteredRegNo });
+  return !!user;
+}
 
 
 const User = mongoose.model("User", userSchema);

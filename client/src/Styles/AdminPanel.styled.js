@@ -6,8 +6,13 @@ export const StyledAdminPanel = styled.div`
   padding: 0 3rem;
 `;
 
-export const StyledAdminPanelGreeting = styled.h1`
-  font-size: 2rem;
+export const StyledAdminPanelHeading = styled.h1`
+  text-align: center;
+  font-size: 4rem;
+  font-family: 'oswald',sans-serif;
+  font-weight: 600;
+  color: #142e84;
+  padding: 2rem 0 1rem 0;
 `;
 
 export const StyledAdminPanelTable = styled.table`
@@ -128,7 +133,14 @@ export const StyledAdminPanelClose = styled.div`
 
 export const StyledAdminPanelDeleteText = styled.div`
   font-size: 2rem;
-  margin: 1rem 0 4rem 0;
+  /* margin: 1rem 0 4rem 0; */
+`;
+
+export const StyledAdminPanelDeleteErrorText = styled.div`
+  color: red;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 2rem 0;
 `;
 
 export const StyledAdminPanelDeleteButtonContainer = styled.div`

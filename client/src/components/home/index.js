@@ -1,8 +1,3 @@
-// import {
-//   StyledHomeHeader,
-//   StyledHomeHeaderContainer
-// } from "../../Styles/Home.styled";
-
 import * as StyledComponents from '../../Styles/Home.styled';
 
 import { StyledButtonYellow } from "../../Styles/Button.styled";

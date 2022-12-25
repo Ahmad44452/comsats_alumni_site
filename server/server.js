@@ -38,8 +38,8 @@ app.use(cors(corsOptions));
 ////////// API ROUTES
 // const userApi = require("./routes/api/userApi");
 // app.use("/api/user", userApi);
-const adminApi = require('./routes/api/adminApi');
-app.use('/api/admin', adminApi)
+const api = require('./routes/api/api');
+app.use('/api', api)
 ///////////////////////////////////////
 
 // app.use(express.static('client/build'));

@@ -4,6 +4,7 @@ import axios from 'axios';
 import useLoading from '../../hooks/useLoading';
 
 import { setDataAdmin } from '../../store/slices/adminSlice';
+import { setDataAlumni } from '../../store/slices/alumniSlice';
 import { useDispatch } from 'react-redux';
 
 const Login = () => {
@@ -23,16 +24,18 @@ const Login = () => {
 
       setGlobalLoading(true);
 
-      let res;
       if (isAdminLogin) {
-        res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/admin/login`, { email, password });
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/adminlogin`, { email, password });
         dispatch(setDataAdmin(res.data));
+      } else {
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/alumnilogin`, { registrationNumber: email, password });
+        dispatch(setDataAlumni(res.data));
       }
-      // console.log(res.data);
+
 
       setGlobalLoading(false);
     } catch (err) {
-      console.log(err)
+
       setGlobalLoading(false);
       if (err.response)
         setError(err.response.data.message);
@@ -50,7 +53,7 @@ const Login = () => {
         <LoginStyled.LoginStyledComsatsLogo src='./images/COMSATS-LOGO.png' />
         <h2>{isAdminLogin ? 'Admin' : 'Alumni'} Login</h2>
         <form onSubmit={handleSubmit}>
-          <LoginStyled.LoginStyledInput type={"email"} placeholder="Email" required onChange={(e) => setEmail(e.currentTarget.value)} />
+          <LoginStyled.LoginStyledInput type={isAdminLogin ? "email" : "text"} placeholder={isAdminLogin ? "Email" : "Registration Number"} required onChange={(e) => setEmail(e.currentTarget.value)} />
           <LoginStyled.LoginStyledInput type={"password"} placeholder="Password" required onChange={(e) => setPassword(e.currentTarget.value)} />
 
           <div style={{ fontSize: '1.5rem', color: 'red' }} >{error}</div>

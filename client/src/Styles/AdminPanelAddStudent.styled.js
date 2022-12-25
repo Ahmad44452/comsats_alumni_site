@@ -99,8 +99,17 @@ export const StyledAdminPanelAddTextInput = styled.input`
 
 `;
 
+export const StyledAdminPanelAddGenerate = styled.div`
+  text-align: right;
+  cursor: pointer;
+  font-size: 1.3rem;
+
+  &:hover{
+    text-decoration: underline;
+  }
+`;
+
 export const StyledAdminPanelAddSubmitInput = styled.input`
-  margin-top: 2rem;
   border: none;
   outline: none;
   cursor: pointer;
@@ -113,7 +122,21 @@ export const StyledAdminPanelAddSubmitInput = styled.input`
   transition: all .3s;
 
   &:hover{
-    color: #142e84;
-    background-color: #fff;
+    color: #fff;
+    background-color: #142e84;
   }
+`;
+
+export const StyledAdminPanelAddError = styled.p`
+  text-align: center;
+  color: red;
+  margin: 2rem 0;
+  font-size: 1.5rem;
+`;
+
+export const StyledAdminPanelAddSuccess = styled.p`
+  text-align: center;
+  color: green;
+  margin: 2rem 0;
+  font-size: 1.5rem;
 `;

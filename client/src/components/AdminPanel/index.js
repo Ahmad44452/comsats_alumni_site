@@ -1,26 +1,43 @@
 import * as StyledAdmin from '../../Styles/AdminPanel.styled';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { AiFillEye } from 'react-icons/ai';
 import { GrAdd } from 'react-icons/gr';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 import AdminPanelDeletePopup from './AdminPanelDeletePopup';
 import AdminPanelAddStudentPopup from './AdminPanelAddStudentPopup';
+import AdminPanelShowStudentInfo from './AdminPanelShowStudentInfo';
+
+import { loadAllStudentsApi } from '../../store/api/adminApi';
 
 const AdminPanel = () => {
 
   const adminData = useSelector(state => state.adminSlice.data);
+  const alumnisSlice = useSelector(state => state.userSlice);
   const [isDelPopupShowing, setIsDelPopupShowing] = useState(false);
+  const [delUserObjId, setDelUserObjId] = useState(null);
+
   const [isAddPopupShowing, setIsAddPopupShowing] = useState(false);
+  const [isShowInfoPopupShowing, setShowInfoPopupShowing] = useState(false);
+  const [showInfoObjId, setShowInfoObjId] = useState(null);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (alumnisSlice && alumnisSlice.data.length === 0) {
+      dispatch(loadAllStudentsApi());
+    }
+  }, [dispatch, alumnisSlice]);
+
 
   return (
     (
       <StyledAdmin.StyledAdminPanel>
-        {/* <StyledAdmin.StyledAdminPanelGreeting>
-          Hello {adminData.name}!
-        </StyledAdmin.StyledAdminPanelGreeting> */}
+        <StyledAdmin.StyledAdminPanelHeading>
+          Admin Panel
+        </StyledAdmin.StyledAdminPanelHeading>
 
         <StyledAdmin.StyledAdminPanelTable>
           <thead>
@@ -33,43 +50,38 @@ const AdminPanel = () => {
 
           <tbody>
 
+            {
+              alumnisSlice.data.map(item => (
+                <tr key={item._id}>
+                  <td>{item.registrationNumber}</td>
+                  <td>{item.password}</td>
+                  <td>
+                    <StyledAdmin.StyledAdminPanelTableSvg hoverColor={'red'} onClick={() => { setDelUserObjId(item._id); setIsDelPopupShowing(true); }}>
+                      <RiDeleteBin6Line />
+                    </StyledAdmin.StyledAdminPanelTableSvg>
 
-            <tr>
-              <td>01</td>
-              <td>asdawqf</td>
-              <td>
-                <StyledAdmin.StyledAdminPanelTableSvg hoverColor={'red'}>
-                  <RiDeleteBin6Line />
-                </StyledAdmin.StyledAdminPanelTableSvg>
+                    <StyledAdmin.StyledAdminPanelTableSvg hoverColor={'#227C70'} onClick={() => { setShowInfoObjId(item._id); setShowInfoPopupShowing(true); }}>
+                      <AiFillEye />
+                    </StyledAdmin.StyledAdminPanelTableSvg>
+                  </td>
+                </tr>
+              ))
+            }
 
-                <StyledAdmin.StyledAdminPanelTableSvg hoverColor={'#227C70'}>
-                  <AiFillEye />
-                </StyledAdmin.StyledAdminPanelTableSvg>
-              </td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>asdawqf</td>
-              <td>
-                <StyledAdmin.StyledAdminPanelTableSvg hoverColor={'red'}>
-                  <RiDeleteBin6Line onClick={() => setIsDelPopupShowing(true)} />
-                </StyledAdmin.StyledAdminPanelTableSvg>
-
-                <StyledAdmin.StyledAdminPanelTableSvg hoverColor={'#227C70'}>
-                  <AiFillEye />
-                </StyledAdmin.StyledAdminPanelTableSvg>
-              </td>
-            </tr>
           </tbody>
 
         </StyledAdmin.StyledAdminPanelTable>
 
         {
-          isDelPopupShowing && <AdminPanelDeletePopup setIsDelPopupShowing={setIsDelPopupShowing} />
+          isDelPopupShowing && <AdminPanelDeletePopup setIsDelPopupShowing={setIsDelPopupShowing} setDelUserObjId={setDelUserObjId} delUserObjId={delUserObjId} />
         }
 
         {
           isAddPopupShowing && <AdminPanelAddStudentPopup setIsAddPopupShowing={setIsAddPopupShowing} />
+        }
+
+        {
+          isShowInfoPopupShowing && <AdminPanelShowStudentInfo setShowInfoPopupShowing={setShowInfoPopupShowing} setShowInfoObjId={setShowInfoObjId} showInfoObjId={showInfoObjId} />
         }
 
 

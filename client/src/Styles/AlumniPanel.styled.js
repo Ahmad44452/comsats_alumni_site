@@ -1,0 +1,162 @@
+import styled from 'styled-components';
+
+export const StyledAdminPanelChangePass = styled.div`
+  min-height: 100vh;
+  background-color: #142e84;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StyledAminPanelChangePassContainer = styled.div`
+  text-align: center;
+`;
+
+
+export const StyledAdminPanelChangePassHeading = styled.h2`
+  color: #fff;
+  text-align: center;
+  font-size: 4rem;
+  text-transform: uppercase;
+  padding: 2rem 0;
+  font-weight: 600;
+  font: 'oswald',sans-serif;
+  margin-bottom: 5rem;
+`;
+
+export const StyledAdminPanelInputGroup = styled.div`
+  margin-bottom: 3rem;
+  label{
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: .5rem;
+    text-align: left;
+  }
+
+  textarea{
+    resize: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    font-size: 1.8rem;
+    padding: 1rem 2rem;
+    width: 55rem;
+    font-family: 'Arial',sans-serif;
+
+    &,&:focus{
+      outline: none;
+      color: #fff;
+    }
+
+    &:hover,&:focus{
+      border: 1px solid #fff;
+    }
+
+    &::placeholder{
+      color: #fff;
+      font-family: 'Arial',sans-serif;
+    }
+  }
+`;
+
+export const StyledAdminPanelInputText = styled.input`
+  
+  &,&:focus{
+    outline: none;
+    border: none;
+    color: #fff;
+  }
+
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #fff !important;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  width: 55rem;
+  
+  
+
+  &:hover,&:focus{
+    border: 1px solid #fff;
+  }
+
+  &::placeholder{
+    color: rgba(255,255,255,.6);
+  }
+
+  &:disabled{
+    opacity: .3;
+
+    &:hover{
+      border-bottom: 1px solid #fff !important;
+    }
+  }
+
+`;
+
+export const StyledAdminPanelInputSubmit = styled.input`
+  margin-top: 2rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 1rem;
+  font-size: 2rem;
+  color: #fff;
+  background-color: transparent;
+  border: 1px solid #fff;
+  transition: all .3s;
+
+  &:hover{
+    color: #142e84;
+    background-color: #fff;
+  }
+`;
+
+export const StyledAdminPanelChangePassError = styled.p`
+  color: #E0144C;
+  font-size: 1.5rem;
+`;
+
+
+
+export const StyledAdminPanel = styled.div`
+  min-height: 100vh;
+  background-color: #142e84;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const StyledAdminPanelHeading = styled.h1`
+  color: #fff;
+  text-align: center;
+  font-size: 4rem;
+  text-transform: uppercase;
+  padding: 2rem 0;
+  font-weight: 600;
+  font: 'oswald',sans-serif;
+  margin-bottom: 5rem;
+`;
+
+export const StyledAdminPanelInputGroupContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  div:first-child{
+    margin-right: 5rem;
+  }
+`;
+
+export const StyledAdminPanelError = styled.p`
+  text-align: center;
+  color: #E0144C;
+  font-size: 2rem;
+`;
+
+export const StyledAdminPanelSuccess = styled.p`
+  text-align: center;
+  color: green;
+  font-size: 2rem;
+`;
