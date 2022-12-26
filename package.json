@@ -18,8 +18,7 @@
     "client": "npm start --prefix client",
     "server": "nodemon server/server.js",
     "npm-install-scripts": "npm install --prefix client && npm install",
-    "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
   "author": "",
   "license": "ISC",
