@@ -14,7 +14,7 @@ import { loadAllStudentsApi } from '../../store/api/adminApi';
 
 const AdminPanel = () => {
 
-  const adminData = useSelector(state => state.adminSlice.data);
+  // const adminData = useSelector(state => state.adminSlice.data);
   const alumnisSlice = useSelector(state => state.userSlice);
   const [isDelPopupShowing, setIsDelPopupShowing] = useState(false);
   const [delUserObjId, setDelUserObjId] = useState(null);

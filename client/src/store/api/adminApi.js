@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { setDataAdmin } from '../slices/adminSlice';
 import { setUserData } from '../slices/userSlice';
 
 
