@@ -10,8 +10,8 @@ import { useDispatch } from 'react-redux';
 const Login = () => {
 
   const [isAdminLogin, setIsAdminLogin] = useState(false);
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
   const setGlobalLoading = useLoading();
 
