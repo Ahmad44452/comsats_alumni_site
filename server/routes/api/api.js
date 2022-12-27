@@ -6,6 +6,7 @@ const { checkLoggedIn } = require("../../middlewares/auth");
 ///////////// GET USER MODEL
 const { Admin } = require("../../models/adminModel");
 const { User } = require('../../models/userModel');
+const { Stats } = require('../../models/statsModel');
 
 router.route("/register").post(async (req, res) => {
   try {
@@ -70,7 +71,7 @@ router.route("/getalumni").get(async (req, res) => {
       error: error
     })
   }
-})
+});
 
 router.route("/getalumnibyid").post(async (req, res) => {
   try {
@@ -168,6 +169,21 @@ router.route("/updatealumni").patch(async (req, res) => {
     const doc = await User.findByIdAndUpdate(req.body.id, req.body.updateData, { new: true });
 
     return res.status(200).json(doc);
+  } catch (error) {
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+});
+
+router.route("/getstats").get(async (req, res) => {
+  try {
+
+    const stats = await Stats.findById("63aa98768e3df1c0311b0564");
+    // console.log(stats);
+    return res.status(200).json(stats);
+
   } catch (error) {
     return res.status(400).json({
       message: "Error",

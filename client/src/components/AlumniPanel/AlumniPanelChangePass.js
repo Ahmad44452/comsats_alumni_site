@@ -40,7 +40,6 @@ const AlumniPanelChangePass = () => {
         setError(err.response.data.message);
       else
         setError('Could not reach server!');
-
     }
 
 

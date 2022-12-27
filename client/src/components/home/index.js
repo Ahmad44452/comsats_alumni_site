@@ -2,9 +2,49 @@ import * as StyledComponents from '../../Styles/Home.styled';
 
 import { StyledButtonYellow } from "../../Styles/Button.styled";
 
+import axios from 'axios';
 import { ImLocation2, ImCalendar } from 'react-icons/im'
+import { useEffect, useState } from 'react';
+import useLoading from '../../hooks/useLoading';
 
 const Home = () => {
+
+  const [statsInfo, setStatsInfo] = useState({
+    passedOut: 0,
+    employed: 0,
+    governmentEmployees: 0,
+    seniorManagement: 0
+  });
+  const setGlobalLoading = useLoading();
+
+  useEffect(() => {
+
+
+
+    if (statsInfo.passedOut === 0) {
+      (async () => {
+        try {
+          setGlobalLoading(true);
+          const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERV}/api/getstats`);
+
+          if (res) {
+            setStatsInfo(res.data);
+          }
+
+          setGlobalLoading(false);
+        } catch (err) {
+          setStatsInfo(null);
+          setGlobalLoading(false);
+        }
+      })();
+
+    }
+
+
+
+
+  }, [setGlobalLoading, statsInfo])
+
   return (
     <>
       <StyledComponents.StyledHomeHeader>
@@ -63,23 +103,23 @@ const Home = () => {
         <StyledComponents.StyledHomeAlumniNumbersContainer>
 
           <StyledComponents.StyledHomeAlumniNumbersBlock>
-            <h3>600+</h3>
+            <h3>{(statsInfo && statsInfo.passedOut) || 600}</h3>
             <p>Passed Out</p>
           </StyledComponents.StyledHomeAlumniNumbersBlock>
 
           <StyledComponents.StyledHomeAlumniNumbersBlock>
-            <h3>150</h3>
-            <p>Employed In Pakistan</p>
+            <h3>{(statsInfo && statsInfo.employed) || 195}</h3>
+            <p>Employed</p>
           </StyledComponents.StyledHomeAlumniNumbersBlock>
 
           <StyledComponents.StyledHomeAlumniNumbersBlock>
-            <h3>40</h3>
-            <p>Employed In Europe</p>
+            <h3>{(statsInfo && statsInfo.governmentEmployees) || 85}</h3>
+            <p>Government Employees</p>
           </StyledComponents.StyledHomeAlumniNumbersBlock>
 
           <StyledComponents.StyledHomeAlumniNumbersBlock>
-            <h3>7</h3>
-            <p>Building their own startup</p>
+            <h3>{(statsInfo && statsInfo.seniorManagement) || 34}</h3>
+            <p>Senior Management</p>
           </StyledComponents.StyledHomeAlumniNumbersBlock>
 
         </StyledComponents.StyledHomeAlumniNumbersContainer>

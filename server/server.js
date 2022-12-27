@@ -25,8 +25,12 @@ mongoose.connect(mongoUri, {
 
 
 //////////// APPLY MIDDLEWARES
+// var corsOptions = {
+//   origin: 'https://comsats-alumni.netlify.app',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
 var corsOptions = {
-  origin: 'https://comsats-alumni.netlify.app',
+  origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(express.json());
