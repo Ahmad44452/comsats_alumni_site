@@ -180,11 +180,12 @@ router.route("/updatealumni").patch(async (req, res) => {
 router.route("/getstats").get(async (req, res) => {
   try {
 
-    const stats = await Stats.findById("63aa98768e3df1c0311b0564");
-    // console.log(stats);
+    const stats = await Stats.findById("63ac2c4c41dd5adba993afec");
+
     return res.status(200).json(stats);
 
   } catch (error) {
+
     return res.status(400).json({
       message: "Error",
       error: error

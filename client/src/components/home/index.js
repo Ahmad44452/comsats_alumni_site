@@ -33,7 +33,7 @@ const Home = () => {
 
           setGlobalLoading(false);
         } catch (err) {
-          setStatsInfo(null);
+          console.log(err);
           setGlobalLoading(false);
         }
       })();
