@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as StyledAlumni from '../../Styles/AlumniPanel.styled';
 import useLoading from '../../hooks/useLoading';
-import { setDataAlumni } from '../../store/slices/alumniSlice';
+import { setDataAlumni, signOutAlumni } from '../../store/slices/alumniSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
@@ -83,6 +83,11 @@ const AlumniPanelSubmitInfo = () => {
     }
   }
 
+  const logOut = (e) => {
+    e.preventDefault();
+    dispatch(signOutAlumni());
+  }
+
   useEffect(() => {
     nameRef.current.value = alumniData.name;
     contactNumberRef.current.value = alumniData.contactNumber;
@@ -102,9 +107,19 @@ const AlumniPanelSubmitInfo = () => {
 
   return (
     <StyledAlumni.StyledAdminPanel>
-      <StyledAlumni.StyledAdminPanelHeading>
-        Personal Information
-      </StyledAlumni.StyledAdminPanelHeading>
+
+      <StyledAlumni.StyledAlumniHeader>
+
+        <StyledAlumni.StyledAdminPanelHeading>
+          Personal Information
+        </StyledAlumni.StyledAdminPanelHeading>
+
+        <StyledAlumni.StyledAlumniPanelHeaderButton onClick={logOut}>
+          Log Out
+        </StyledAlumni.StyledAlumniPanelHeaderButton>
+
+      </StyledAlumni.StyledAlumniHeader>
+
 
 
 

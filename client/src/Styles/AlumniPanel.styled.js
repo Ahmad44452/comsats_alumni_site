@@ -129,15 +129,40 @@ export const StyledAdminPanel = styled.div`
   align-items: center;
 `;
 
+export const StyledAlumniHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2rem 13rem;
+  margin-bottom: 5rem;
+`;
+
+export const StyledAlumniPanelHeaderButton = styled.button`
+  background-color: #142e84;
+  text-align: center;
+  border: 1px solid #fff;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: #fff;
+  transition: all .3s;
+
+  &:hover{
+    background-color: #fff;
+    color: #142e84;
+  }
+`;
+
 export const StyledAdminPanelHeading = styled.h1`
   color: #fff;
   text-align: center;
   font-size: 4rem;
   text-transform: uppercase;
-  padding: 2rem 0;
   font-weight: 600;
   font: 'oswald',sans-serif;
-  margin-bottom: 5rem;
 `;
 
 export const StyledAdminPanelInputGroupContainer = styled.div`

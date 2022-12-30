@@ -27,6 +27,7 @@ const AppRoutes = () => {
         <Route path='/login' element={(alumniAuth && (<Navigate to='/alumnipanel' replace={true} />)) || (adminAuth && (<Navigate to='/adminpanel' replace={true} />)) || (<Login />)} />
         <Route path='/adminpanel' element={(adminAuth && <AdminPanel />) || (!adminAuth && <Navigate to='/login' replace={true} />)} />
         <Route path='/alumnipanel' element={(alumniAuth && <AlumniPanel />) || (!alumniAuth && <Navigate to='/login' replace={true} />)} />
+        <Route path='*' element={<Navigate to='/' />} />
       </Routes>
       <Footer />
     </BrowserRouter>

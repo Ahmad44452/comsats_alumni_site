@@ -98,3 +98,15 @@ export const StyledContactInputSubmit = styled.input`
     background-color: #fff;
   }
 `;
+
+export const StyledContactError = styled.p`
+  text-align: center;
+  font-size: 2rem;
+  color: red;
+`;
+
+export const StyledContactSuccess = styled.p`
+  text-align: center;
+  font-size: 2rem;
+  color: green;
+`;

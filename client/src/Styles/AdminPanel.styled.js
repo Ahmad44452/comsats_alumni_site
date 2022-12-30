@@ -6,6 +6,12 @@ export const StyledAdminPanel = styled.div`
   padding: 0 3rem;
 `;
 
+export const StyledAdminPanelHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const StyledAdminPanelHeading = styled.h1`
   text-align: center;
   font-size: 4rem;
@@ -13,6 +19,24 @@ export const StyledAdminPanelHeading = styled.h1`
   font-weight: 600;
   color: #142e84;
   padding: 2rem 0 1rem 0;
+`;
+
+export const StyledAminPanelHeaderButton = styled.button`
+  background-color: #fff;
+  text-align: center;
+  border: 1px solid #142e84;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: #142e84;
+  transition: all .3s;
+
+  &:hover{
+    background-color: #162b6f;
+    color: #fff;
+  }
 `;
 
 export const StyledAdminPanelTable = styled.table`

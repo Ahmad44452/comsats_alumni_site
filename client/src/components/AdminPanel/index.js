@@ -11,6 +11,7 @@ import AdminPanelAddStudentPopup from './AdminPanelAddStudentPopup';
 import AdminPanelShowStudentInfo from './AdminPanelShowStudentInfo';
 
 import { loadAllStudentsApi } from '../../store/api/adminApi';
+import { signOutAdmin } from '../../store/slices/adminSlice';
 
 const AdminPanel = () => {
 
@@ -25,6 +26,11 @@ const AdminPanel = () => {
 
   const dispatch = useDispatch();
 
+  const logOut = (e) => {
+    e.preventDefault();
+    dispatch(signOutAdmin());
+  }
+
   useEffect(() => {
     if (alumnisSlice && alumnisSlice.data.length === 0) {
       dispatch(loadAllStudentsApi());
@@ -35,9 +41,19 @@ const AdminPanel = () => {
   return (
     (
       <StyledAdmin.StyledAdminPanel>
-        <StyledAdmin.StyledAdminPanelHeading>
-          Admin Panel
-        </StyledAdmin.StyledAdminPanelHeading>
+
+        <StyledAdmin.StyledAdminPanelHeader>
+          <StyledAdmin.StyledAdminPanelHeading>
+            Admin Panel
+          </StyledAdmin.StyledAdminPanelHeading>
+
+          <StyledAdmin.StyledAminPanelHeaderButton onClick={logOut}>
+            Log Out
+          </StyledAdmin.StyledAminPanelHeaderButton>
+
+        </StyledAdmin.StyledAdminPanelHeader>
+
+
 
         <StyledAdmin.StyledAdminPanelTable>
           <thead>
