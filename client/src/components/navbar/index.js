@@ -12,6 +12,7 @@ const Navbar = () => {
       </StyledNavbarHeader>
       <StyledNavbar>
         <StyledNavItem to={'/'}>Home</StyledNavItem>
+        <StyledNavItem to={'/gallery'} >Gallery</StyledNavItem>
         <StyledNavItem to={'/about'} >About</StyledNavItem>
         <StyledNavItem to={'/contact'} >Contact</StyledNavItem>
       </StyledNavbar>

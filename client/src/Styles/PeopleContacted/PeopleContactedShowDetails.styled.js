@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const StyledAdminPanelShowContainer = styled.div`
+export const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -14,11 +14,11 @@ export const StyledAdminPanelShowContainer = styled.div`
   justify-content: center;
 `;
 
-export const StyledAdminPanelAdd = styled.div`
+export const Add = styled.div`
   
 `;
 
-export const StyledAdminPanelShowContent = styled.div`
+export const Content = styled.div`
   background-color: #fff;
   position: relative;
   border-radius: 3px;
@@ -26,7 +26,7 @@ export const StyledAdminPanelShowContent = styled.div`
 `;
 
 
-export const StyledAdminPanelShowClose = styled.div`
+export const Close = styled.div`
   position: absolute;
   right: 2px;
   top: 0;
@@ -46,7 +46,7 @@ export const StyledAdminPanelShowClose = styled.div`
   }
 `;
 
-export const StyledAdminPanelShowHeading = styled.h2`
+export const Heading = styled.h2`
   font-size: 3rem;
   text-transform: uppercase;
   position: relative;
@@ -66,23 +66,23 @@ export const StyledAdminPanelShowHeading = styled.h2`
   }
 `;
 
-export const StyledAdminPanelShowInfoContainer = styled.div`
+export const InfoContainer = styled.div`
 
 `;
 
-export const StyledAdminPanelShowInfoGroup = styled.div`
+export const InfoGroup = styled.div`
   display: flex;
   align-items: center;
   font-size: 2rem;
   width: 50rem;
 `;
 
-export const StyledAdminPanelShowInfoLabel = styled.p`
+export const InfoLabel = styled.p`
   font-family: 'oswald',sans-serif;
   font-weight: 400;
   font-size: 2.5rem;
 `;
 
-export const StyledAdminPanelShowInfoText = styled.p`
+export const InfoText = styled.p`
   margin-left: 1.5rem;
 `;

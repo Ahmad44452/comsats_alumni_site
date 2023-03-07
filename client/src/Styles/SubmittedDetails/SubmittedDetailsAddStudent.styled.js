@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const StyledAdminPanelAddContainer = styled.div`
+export const SubmittedDetailsAddContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -14,11 +14,11 @@ export const StyledAdminPanelAddContainer = styled.div`
   justify-content: center;
 `;
 
-export const StyledAdminPanelAdd = styled.div`
+export const SubmittedDetailsAdd = styled.div`
   
 `;
 
-export const StyledAdminPanelAddContent = styled.div`
+export const SubmittedDetailsAddContent = styled.div`
   background-color: #fff;
   position: relative;
   border-radius: 3px;
@@ -26,7 +26,7 @@ export const StyledAdminPanelAddContent = styled.div`
 `;
 
 
-export const StyledAdminPanelClose = styled.div`
+export const SubmittedDetailsClose = styled.div`
   position: absolute;
   right: 2px;
   top: 0;
@@ -46,7 +46,7 @@ export const StyledAdminPanelClose = styled.div`
   }
 `;
 
-export const StyledAdminPanelAddHeading = styled.h2`
+export const SubmittedDetailsAddHeading = styled.h2`
   font-size: 3rem;
   text-transform: uppercase;
   position: relative;
@@ -66,7 +66,7 @@ export const StyledAdminPanelAddHeading = styled.h2`
   }
 `;
 
-export const StyledAdminPanelAddTextInput = styled.input`
+export const SubmittedDetailsAddTextInput = styled.input`
 
   &,&:focus{
     border: none;
@@ -99,7 +99,7 @@ export const StyledAdminPanelAddTextInput = styled.input`
 
 `;
 
-export const StyledAdminPanelAddGenerate = styled.div`
+export const SubmittedDetailsAddGenerate = styled.div`
   text-align: right;
   cursor: pointer;
   font-size: 1.3rem;
@@ -109,7 +109,7 @@ export const StyledAdminPanelAddGenerate = styled.div`
   }
 `;
 
-export const StyledAdminPanelAddSubmitInput = styled.input`
+export const SubmittedDetailsAddSubmitInput = styled.input`
   border: none;
   outline: none;
   cursor: pointer;
@@ -127,14 +127,14 @@ export const StyledAdminPanelAddSubmitInput = styled.input`
   }
 `;
 
-export const StyledAdminPanelAddError = styled.p`
+export const SubmittedDetailsAddError = styled.p`
   text-align: center;
   color: red;
   margin: 2rem 0;
   font-size: 1.5rem;
 `;
 
-export const StyledAdminPanelAddSuccess = styled.p`
+export const SubmittedDetailsAddSuccess = styled.p`
   text-align: center;
   color: green;
   margin: 2rem 0;

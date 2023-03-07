@@ -7,13 +7,15 @@ import { setDataAdmin } from '../../store/slices/adminSlice';
 import { setDataAlumni } from '../../store/slices/alumniSlice';
 import { useDispatch } from 'react-redux';
 
-const Login = () => {
+const Login = ({ loginType }) => {
 
-  const [isAdminLogin, setIsAdminLogin] = useState(false);
+  // const [loginType, setLoginType] = useState('Alumni');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
   const setGlobalLoading = useLoading();
+
+  const [cnic, setCnic] = useState('');
 
   const dispatch = useDispatch();
 
@@ -24,12 +26,12 @@ const Login = () => {
 
       setGlobalLoading(true);
 
-      if (isAdminLogin) {
-        const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/adminlogin`, { email, password });
-        dispatch(setDataAdmin(res.data));
-      } else {
+      if (loginType === 'Alumni') {
         const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/alumnilogin`, { registrationNumber: email, password });
         dispatch(setDataAlumni(res.data));
+      } else {
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/adminlogin`, { email, password, loginType: loginType });
+        dispatch(setDataAdmin(res.data));
       }
 
 
@@ -49,12 +51,31 @@ const Login = () => {
     <LoginStyled.LoginStyled>
 
       <LoginStyled.LoginStyledContainer >
-
         <LoginStyled.LoginStyledComsatsLogo src='./images/COMSATS-LOGO.png' />
-        <h2>{isAdminLogin ? 'Admin' : 'Alumni'} Login</h2>
+        {
+          loginType === "AlumniLogin" ? (<h2>Alumni Login</h2>) : (
+            loginType === "AlumniSignup" ? <h2>Alumni SignUp</h2> : <h2>{loginType} Login</h2>
+          )
+        }
+
+        {/* {
+          loginType === "AlumniSignup" && <h2>Alumni SignUp</h2>
+        }
+        <h2>{loginType} Login</h2> */}
         <form onSubmit={handleSubmit}>
-          <LoginStyled.LoginStyledInput type={isAdminLogin ? "email" : "text"} placeholder={isAdminLogin ? "Email" : "Registration Number"} required onChange={(e) => setEmail(e.currentTarget.value)} />
-          <LoginStyled.LoginStyledInput type={"password"} placeholder="Password" required onChange={(e) => setPassword(e.currentTarget.value)} />
+          {
+            loginType === 'AlumniSignup' ? <>
+              <LoginStyled.LoginStyledInput type="text" placeholder="Registration Number" required onChange={(e) => setEmail(e.currentTarget.value)} />
+              <LoginStyled.LoginStyledInput type="text" placeholder="CNIC Number" required onChange={(e) => setCnic(e.currentTarget.value)} />
+              <LoginStyled.LoginStyledInput type="password" placeholder="Password" required onChange={(e) => setPassword(e.currentTarget.value)} />
+            </> : (
+              <>
+                <LoginStyled.LoginStyledInput type={loginType === 'AlumniLogin' ? "text" : "email"} placeholder={loginType === 'AlumniLogin' ? "Registration Number" : "Email"} required onChange={(e) => setEmail(e.currentTarget.value)} />
+                <LoginStyled.LoginStyledInput type={"password"} placeholder="Password" required onChange={(e) => setPassword(e.currentTarget.value)} />
+              </>
+            )
+          }
+
 
           <div style={{ fontSize: '1.5rem', color: 'red' }} >{error}</div>
           <LoginStyled.LoginStyledSubmitButton type="submit">
@@ -62,7 +83,25 @@ const Login = () => {
           </LoginStyled.LoginStyledSubmitButton>
         </form>
 
-        <p onClick={() => setIsAdminLogin(prev => !prev)} >Want to login as {isAdminLogin ? 'alumni' : 'admin'}? Click here</p>
+        {/* <LoginStyled.LoginStyledOptionButtons>
+          <button>Alumni SignUp</button>
+          {
+            loginType === 'Alumni' ? null : <button onClick={() => setLoginType('Alumni')}>Alumni Login</button>
+          }
+
+          {
+            loginType === 'Developer' ? null : <button onClick={() => setLoginType('Developer')}>Developer Login</button>
+          }
+
+          {
+            loginType === 'Admin' ? null : <button onClick={() => setLoginType('Admin')}>Admin Login</button>
+          }
+
+          {
+            loginType === 'HOD' ? null : <button onClick={() => setLoginType('HOD')}>HOD Login</button>
+          }
+        </LoginStyled.LoginStyledOptionButtons> */}
+        {/* <p onClick={() => setIsAdminLogin(prev => !prev)} >Want to login as {isAdminLogin ? 'alumni' : 'admin'}? Click here</p> */}
 
       </LoginStyled.LoginStyledContainer>
 

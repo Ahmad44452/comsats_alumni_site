@@ -5,14 +5,14 @@ const initialState = {
     email: '',
     name: ''
   },
-  adminAuth: false
+  adminAuth: false,
+  dashboardComponent: 'dashboard'
 };
 
 export const adminSlice = createSlice({
   name: 'admin',
   initialState,
   reducers: {
-
     setDataAdmin: (state, action) => {
       state.data = { ...state.data, ...action.payload };
       state.adminAuth = true;
@@ -20,6 +20,9 @@ export const adminSlice = createSlice({
     signOutAdmin: (state, action) => {
       state.data = initialState.data;
       state.adminAuth = false;
+    },
+    setDashboardComponent: (state, action) => {
+      state.component = action.payload
     }
   }
 });

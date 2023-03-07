@@ -1,11 +1,11 @@
 import * as StyledComponents from '../../Styles/Home.styled';
-
 import { StyledButtonYellow } from "../../Styles/Button.styled";
-
 import axios from 'axios';
 import { ImLocation2, ImCalendar } from 'react-icons/im'
 import { useEffect, useState } from 'react';
 import useLoading from '../../hooks/useLoading';
+import Navbar from '../navbar';
+import Footer from '../Footer';
 
 const Home = () => {
 
@@ -27,7 +27,7 @@ const Home = () => {
           setGlobalLoading(true);
           const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERV}/api/getstats`);
 
-          if (res) {
+          if (res.data) {
             setStatsInfo(res.data);
           }
 
@@ -47,6 +47,7 @@ const Home = () => {
 
   return (
     <>
+      <Navbar />
       <StyledComponents.StyledHomeHeader>
         <StyledComponents.StyledHomeHeaderContainer>
           <h2>Welcome</h2>
@@ -194,6 +195,7 @@ const Home = () => {
         </StyledComponents.StyledHomeEventsContainer>
 
       </StyledComponents.StyledHomeEvents>
+      <Footer />
     </>
 
   )

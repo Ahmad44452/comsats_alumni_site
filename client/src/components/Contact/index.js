@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 import * as StyledContact from '../../Styles/Contact.styled';
 import useLoading from '../../hooks/useLoading';
 import axios from 'axios';
+import Navbar from '../navbar';
+import Footer from '../Footer';
 
 const Contact = () => {
 
@@ -53,50 +55,54 @@ const Contact = () => {
   }
 
   return (
-    <StyledContact.StyledContact>
-      <h2>Contact Us</h2>
+    <>
+      <Navbar />
+      <StyledContact.StyledContact>
+        <h2>Contact Us</h2>
 
-      <StyledContact.StyledContactInputContainer>
-        <form onSubmit={handleSubmit}>
-          <StyledContact.StyledContactInputGroup>
-            <label>Name</label>
-            <StyledContact.StyledContactInputText ref={nameRef} type={'text'} required placeholder='Enter your name' onChange={e => setName(e.currentTarget.value)} />
-          </StyledContact.StyledContactInputGroup>
+        <StyledContact.StyledContactInputContainer>
+          <form onSubmit={handleSubmit}>
+            <StyledContact.StyledContactInputGroup>
+              <label>Name</label>
+              <StyledContact.StyledContactInputText ref={nameRef} type={'text'} required placeholder='Enter your name' onChange={e => setName(e.currentTarget.value)} />
+            </StyledContact.StyledContactInputGroup>
 
-          <StyledContact.StyledContactInputGroup>
-            <label>Email</label>
-            <StyledContact.StyledContactInputText ref={emailRef} type={'email'} required placeholder='Enter your email' onChange={e => setEmail(e.currentTarget.value)} />
-          </StyledContact.StyledContactInputGroup>
+            <StyledContact.StyledContactInputGroup>
+              <label>Email</label>
+              <StyledContact.StyledContactInputText ref={emailRef} type={'email'} required placeholder='Enter your email' onChange={e => setEmail(e.currentTarget.value)} />
+            </StyledContact.StyledContactInputGroup>
 
-          <StyledContact.StyledContactInputGroup>
-            <label>Address</label>
-            <StyledContact.StyledContactInputText ref={addressRef} type={'address'} required placeholder='Enter your address' onChange={e => setAddress(e.currentTarget.value)} />
-          </StyledContact.StyledContactInputGroup>
+            <StyledContact.StyledContactInputGroup>
+              <label>Address</label>
+              <StyledContact.StyledContactInputText ref={addressRef} type={'address'} required placeholder='Enter your address' onChange={e => setAddress(e.currentTarget.value)} />
+            </StyledContact.StyledContactInputGroup>
 
-          <StyledContact.StyledContactInputGroup>
-            <label>Subject</label>
-            <StyledContact.StyledContactInputText ref={subjectRef} type={'text'} required placeholder='Enter the subject' onChange={e => setSubject(e.currentTarget.value)} />
-          </StyledContact.StyledContactInputGroup>
+            <StyledContact.StyledContactInputGroup>
+              <label>Subject</label>
+              <StyledContact.StyledContactInputText ref={subjectRef} type={'text'} required placeholder='Enter the subject' onChange={e => setSubject(e.currentTarget.value)} />
+            </StyledContact.StyledContactInputGroup>
 
-          <StyledContact.StyledContactInputGroup>
-            <label>Message</label>
-            <textarea placeholder='Type your message here' rows="4" cols="50" ref={messageRef} />
-          </StyledContact.StyledContactInputGroup>
+            <StyledContact.StyledContactInputGroup>
+              <label>Message</label>
+              <textarea placeholder='Type your message here' rows="4" cols="50" ref={messageRef} onChange={e => setMessage(e.currentTarget.value)} />
+            </StyledContact.StyledContactInputGroup>
 
-          <StyledContact.StyledContactError>
-            {error}
-          </StyledContact.StyledContactError>
+            <StyledContact.StyledContactError>
+              {error}
+            </StyledContact.StyledContactError>
 
-          <StyledContact.StyledContactSuccess>
-            {success}
-          </StyledContact.StyledContactSuccess>
+            <StyledContact.StyledContactSuccess>
+              {success}
+            </StyledContact.StyledContactSuccess>
 
 
-          <StyledContact.StyledContactInputSubmit type='submit' value={'SUBMIT'} />
-        </form>
-      </StyledContact.StyledContactInputContainer>
+            <StyledContact.StyledContactInputSubmit type='submit' value={'SUBMIT'} />
+          </form>
+        </StyledContact.StyledContactInputContainer>
 
-    </StyledContact.StyledContact>
+      </StyledContact.StyledContact>
+      <Footer />
+    </>
   )
 }
 

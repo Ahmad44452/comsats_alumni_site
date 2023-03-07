@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useState, useRef } from 'react';
-import * as StyledPopup from '../../Styles/AdminPanelAddStudent.styled';
+import * as StyledPopup from '../../Styles/SubmittedDetails/SubmittedDetailsAddStudent.styled';
 import { GrFormClose } from 'react-icons/gr';
 import { useDispatch } from 'react-redux';
 
 import useLoading from '../../hooks/useLoading';
 
 
-import { loadAllStudentsApi } from '../../store/api/adminApi';
+import { loadAllAlumnisApi } from '../../store/api/adminApi';
 
 const AdminPanelAddStudentPopup = ({ setIsAddPopupShowing }) => {
 
@@ -54,7 +54,7 @@ const AdminPanelAddStudentPopup = ({ setIsAddPopupShowing }) => {
         setRegistrationNumber('');
         setPassword('');
         setSuccessMessage('Alumni Added!');
-        dispatch(loadAllStudentsApi());
+        dispatch(loadAllAlumnisApi());
       }
 
 
@@ -75,43 +75,43 @@ const AdminPanelAddStudentPopup = ({ setIsAddPopupShowing }) => {
 
 
   return (
-    <StyledPopup.StyledAdminPanelAddContainer>
+    <StyledPopup.SubmittedDetailsAddContainer>
 
-      <StyledPopup.StyledAdminPanelAdd>
+      <StyledPopup.SubmittedDetailsAdd>
 
-        <StyledPopup.StyledAdminPanelAddContent>
+        <StyledPopup.SubmittedDetailsAddContent>
 
-          <StyledPopup.StyledAdminPanelClose>
+          <StyledPopup.SubmittedDetailsClose>
             <GrFormClose onClick={() => setIsAddPopupShowing(false)} />
-          </StyledPopup.StyledAdminPanelClose>
+          </StyledPopup.SubmittedDetailsClose>
 
-          <StyledPopup.StyledAdminPanelAddHeading>
+          <StyledPopup.SubmittedDetailsAddHeading>
             Add Student
-          </StyledPopup.StyledAdminPanelAddHeading>
+          </StyledPopup.SubmittedDetailsAddHeading>
 
           <form onSubmit={handleSubmit}>
-            <StyledPopup.StyledAdminPanelAddTextInput ref={registrationNumberRef} type={'text'} placeholder='Registration no' required onChange={(e) => setRegistrationNumber(e.currentTarget.value)} />
+            <StyledPopup.SubmittedDetailsAddTextInput ref={registrationNumberRef} type={'text'} placeholder='Registration no' required onChange={(e) => setRegistrationNumber(e.currentTarget.value)} />
 
 
-            <StyledPopup.StyledAdminPanelAddTextInput ref={passwordRef} type={'password'} placeholder='Password' required onChange={(e) => setPassword(e.currentTarget.value)} />
-            <StyledPopup.StyledAdminPanelAddGenerate onClick={generatePassword}>
+            <StyledPopup.SubmittedDetailsAddTextInput ref={passwordRef} type={'password'} placeholder='Password' required onChange={(e) => setPassword(e.currentTarget.value)} />
+            <StyledPopup.SubmittedDetailsAddGenerate onClick={generatePassword}>
               Auto generate password
-            </StyledPopup.StyledAdminPanelAddGenerate>
+            </StyledPopup.SubmittedDetailsAddGenerate>
 
 
-            <StyledPopup.StyledAdminPanelAddError>{error}</StyledPopup.StyledAdminPanelAddError>
-            <StyledPopup.StyledAdminPanelAddSubmitInput value={"ADD"} type={'submit'} />
-            <StyledPopup.StyledAdminPanelAddSuccess>{successMessage}</StyledPopup.StyledAdminPanelAddSuccess>
+            <StyledPopup.SubmittedDetailsAddError>{error}</StyledPopup.SubmittedDetailsAddError>
+            <StyledPopup.SubmittedDetailsAddSubmitInput value={"ADD"} type={'submit'} />
+            <StyledPopup.SubmittedDetailsAddSuccess>{successMessage}</StyledPopup.SubmittedDetailsAddSuccess>
           </form>
 
 
 
 
-        </StyledPopup.StyledAdminPanelAddContent>
+        </StyledPopup.SubmittedDetailsAddContent>
 
-      </StyledPopup.StyledAdminPanelAdd>
+      </StyledPopup.SubmittedDetailsAdd>
 
-    </StyledPopup.StyledAdminPanelAddContainer>
+    </StyledPopup.SubmittedDetailsAddContainer>
   )
 }
 

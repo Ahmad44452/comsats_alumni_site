@@ -28,6 +28,12 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: [true, "Name is required!"],
     trim: true
+  },
+  role: {
+    type: String,
+    required: [true, "Role is required!"],
+    enum: ['Developer', 'HOD', 'Admin'],
+    default: 'Admin'
   }
 })
 

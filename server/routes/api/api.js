@@ -19,7 +19,8 @@ router.route("/register").post(async (req, res) => {
     const admin = new Admin({
       email: req.body.email,
       password: req.body.password,
-      name: req.body.name
+      name: req.body.name,
+      role: req.body.role
     })
 
     const doc = await admin.save();
@@ -93,7 +94,7 @@ router.route("/adminlogin").post(async (req, res) => {
   try {
 
     const admin = await Admin.findOne({ email: req.body.email });
-    if (!admin) return res.status(400).json({ message: "No account associated with this email!" });
+    if (!admin || admin.role !== req.body.loginType) return res.status(400).json({ message: "No account associated with this email!" });
 
     if (!req.body.password) return res.status(400).json({ message: "Wrong password!" });
 
@@ -181,7 +182,7 @@ router.route("/updatealumni").patch(async (req, res) => {
 router.route("/getstats").get(async (req, res) => {
   try {
 
-    const stats = await Stats.findById("63ac2c4c41dd5adba993afec");
+    const stats = await Stats.findById("63aa98768e3df1c0311b0564");
 
     return res.status(200).json(stats);
 
@@ -213,6 +214,50 @@ router.route("/submitcontactus").post(async (req, res) => {
       message: "Error",
       error: error
     })
+  }
+});
+
+router.route("/getcontacted").get(async (req, res) => {
+  try {
+
+    const peopleContacted = await ContactUs.find();
+
+    return res.status(200).json(peopleContacted);
+
+  } catch (error) {
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+});
+
+router.route("/getcontactedbyid").post(async (req, res) => {
+  try {
+
+    const contacted = await ContactUs.findById(req.body.id);
+
+    return res.status(200).json(contacted);
+
+  } catch (error) {
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+})
+
+router.route('/deletecontacted').delete(async (req, res) => {
+  try {
+
+    const deleted = await ContactUs.deleteOne({ _id: req.body._id });
+
+    return res.status(200).json(deleted);
+  } catch (error) {
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    });
   }
 });
 

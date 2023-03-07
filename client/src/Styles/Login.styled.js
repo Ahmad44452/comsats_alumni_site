@@ -13,7 +13,7 @@ export const LoginStyled = styled.div`
 export const LoginStyledContainer = styled.div`
   background-color: auto;
   border-radius: 5px;
-  padding: 4rem 5rem;
+  padding: 4rem 3rem;
   text-align: center;
   background-color: #162b6f;
 
@@ -48,7 +48,7 @@ export const LoginStyledInput = styled.input`
   font-size: 1.8rem;
   padding: 1.2rem;
   border-radius: 2px;
-  width: 35rem;
+  width: 45rem;
 
   &::placeholder{
     color: ${({ color }) => color || 'auto'};
@@ -84,6 +84,27 @@ export const LoginStyledSubmitButton = styled.button`
   &:active{
     transform: translateY(-1px);
     box-shadow: 0 0.5rem 1rem rgb(233 0 63 / 10%);
+  }
+`;
+
+export const LoginStyledOptionButtons = styled.div`
+  display: flex;
+  column-gap: 10px;
+  margin-top: 3.5rem;
+  button{
+    background-color: #162b6f;
+    color: #fff;
+    filter: brightness(130%);
+    padding: 1rem 2rem;
+    border: 2px solid #142e84;
+    border-radius: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all .1s;
+
+    &:hover{
+      filter: brightness(150%);
+    }
   }
 `;
 

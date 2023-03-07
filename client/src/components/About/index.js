@@ -1,8 +1,11 @@
 import * as StyledAbout from '../../Styles/About.styled';
+import Navbar from '../navbar';
+import Footer from '../Footer';
 
 const About = () => {
   return (
     <>
+      <Navbar />
       <StyledAbout.StyledAboutContainer
         bgImgUrl={'https://static.wixstatic.com/media/0ba375d130f247e1afe4ab96341919f7.jpg/v1/fill/w_1245,h_720,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_auto/0ba375d130f247e1afe4ab96341919f7.jpg'}
       >
@@ -42,6 +45,7 @@ const About = () => {
           </p>
         </div>
       </StyledAbout.StyledAboutContainer>
+      <Footer />
     </>
   )
 }
