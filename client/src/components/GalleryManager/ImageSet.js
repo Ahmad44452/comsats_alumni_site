@@ -1,5 +1,7 @@
 import * as Styled from '../../Styles/GalleryManager/ImageSet.styled';
 
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 import ImageSetDelete from './ImageSetDelete';
 import { useState } from 'react';
@@ -18,7 +20,7 @@ const ImageSet = ({ item }) => {
 
         <Styled.ImageSetImagesContainer>
           {
-            item.urls.map((img, i) => <Styled.ImageSetSingle key={i} src={img} />)
+            item.urls.map((img, i) => <Styled.ImageSetSingle key={i} src={img} placeholderSrc='./images/imageplaceholder.png' effect='blur' />)
           }
         </Styled.ImageSetImagesContainer>
       </Styled.ImageSetContainer>

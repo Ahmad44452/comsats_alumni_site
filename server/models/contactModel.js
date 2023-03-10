@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const aggregatePaginate = require("mongoose-aggregate-paginate-v2");
+
 
 const contactSchema = new mongoose.Schema({
   name: {
@@ -31,5 +33,7 @@ const contactSchema = new mongoose.Schema({
 
 });
 
+contactSchema.plugin(aggregatePaginate);
 const ContactUs = mongoose.model("ContactUs", contactSchema);
+
 module.exports = { ContactUs };

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const Container = styled.div`
   background-color: #142e84;
@@ -38,6 +39,6 @@ export const ImageSetImagesContainer = styled.div`
   gap: 1rem;
 `;
 
-export const ImageSetSingle = styled.img`
+export const ImageSetSingle = styled(LazyLoadImage)`
   width: 100%;
 `;

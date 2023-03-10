@@ -5,8 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiFillEye } from 'react-icons/ai';
 import { RiDeleteBin6Line } from 'react-icons/ri'
 
+import { StyledLoadMoreButton } from '../../Styles/Button.styled';
+
 import PeopleContactedDeletePopup from './PeopleContactedDeletePopup';
-import PeopleContactedShowDetails from './PeopleContactedShowDetails'
+import PeopleContactedShowDetails from './PeopleContactedShowDetails';
+import useLoading from '../../hooks/useLoading';
 
 
 const PeopleContacted = () => {
@@ -18,11 +21,19 @@ const PeopleContacted = () => {
   const [isShowInfoPopupShowing, setShowInfoPopupShowing] = useState(false);
   const [showInfoObjId, setShowInfoObjId] = useState(null);
 
+  const setGlobalLoading = useLoading();
+
   const dispatch = useDispatch();
+
+  const fetchPeopleContacted = (pageNo) => {
+    setGlobalLoading(true);
+    dispatch(loadAllPeopleContactedApi(pageNo)).then(() => setGlobalLoading(false))
+
+  }
 
   useEffect(() => {
     if (peopleContactedSlice && peopleContactedSlice.data === null) {
-      dispatch(loadAllPeopleContactedApi());
+      fetchPeopleContacted(1)
     }
   }, [dispatch, peopleContactedSlice]);
 
@@ -46,7 +57,7 @@ const PeopleContacted = () => {
         <tbody>
 
           {
-            peopleContactedSlice.data && peopleContactedSlice.data.map(item => (
+            peopleContactedSlice && peopleContactedSlice.data && peopleContactedSlice.data.docs.map(item => (
               <tr key={item._id}>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
@@ -65,6 +76,15 @@ const PeopleContacted = () => {
 
         </tbody>
       </Contacted.Table>
+
+      {
+        peopleContactedSlice && peopleContactedSlice.data && peopleContactedSlice.data.hasNextPage && <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+          <StyledLoadMoreButton onClick={() => fetchPeopleContacted(peopleContactedSlice.data.page + 1)}>Load More</StyledLoadMoreButton>
+        </div>
+      }
+
+
+
 
       {
         isDelPopupShowing && <PeopleContactedDeletePopup setIsDelPopupShowing={setIsDelPopupShowing} setDelUserObjId={setDelUserObjId} delUserObjId={delUserObjId} />

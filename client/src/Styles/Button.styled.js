@@ -22,3 +22,25 @@ export const StyledButtonYellow = styled(Link)`
   }
   
 `
+
+export const StyledLoadMoreButton = styled(Link)`
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #162b6f;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  transition: all .3s;
+
+  &:link,&:visited{
+    color: #162b6f;
+  }
+
+  &:hover{
+    background-color: #162b6f;
+    color: #fff;
+  }
+  
+`

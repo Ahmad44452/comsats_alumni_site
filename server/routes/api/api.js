@@ -68,6 +68,7 @@ router.route("/getalumni").get(async (req, res) => {
     return res.status(200).json(alumnis);
 
   } catch (error) {
+    console.log(error)
     return res.status(400).json({
       message: "Error",
       error: error
@@ -217,10 +218,12 @@ router.route("/submitcontactus").post(async (req, res) => {
   }
 });
 
-router.route("/getcontacted").get(async (req, res) => {
+router.route("/getcontacted/:pageno").get(async (req, res) => {
   try {
-
-    const peopleContacted = await ContactUs.find();
+    var myAggregate = ContactUs.aggregate()
+    const peopleContacted = await ContactUs.aggregatePaginate(myAggregate, { page: req.params.pageno || 1, limit: 10 })
+    // offset property to skip
+    // const peopleContacted = await ContactUs.find();
 
     return res.status(200).json(peopleContacted);
 

@@ -23,7 +23,7 @@ export const Heading = styled.h1`
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  margin-top: 2rem;
+  margin: 2rem 0;
 
   td, th {
     padding: 8px;

@@ -8,9 +8,18 @@ export const peopleContactedSlice = createSlice({
   name: 'peoplecontacted',
   initialState,
   reducers: {
-
     setPeopleContactedData: (state, action) => {
-      state.data = [...action.payload];
+
+      if (state.data && state.data.docs) {
+        if (state.data.page !== action.payload.page) {
+          const previousDocs = state.data.docs;
+          state.data = action.payload;
+          state.data.docs = [...previousDocs, ...action.payload.docs];
+        }
+      } else {
+        state.data = action.payload;
+      }
+
     }
   }
 });

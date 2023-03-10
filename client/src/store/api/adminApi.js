@@ -5,7 +5,7 @@ import { setPeopleContactedData } from '../slices/peopleContactedSlice';
 export const loadAllAlumnisApi = () => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERV}/api/getalumni`);
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERV}/api/getalumni/`);
 
       dispatch(setUserData(res.data));
 
@@ -21,10 +21,10 @@ export const loadAllAlumnisApi = () => {
   }
 }
 
-export const loadAllPeopleContactedApi = () => {
+export const loadAllPeopleContactedApi = (pageNo) => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERV}/api/getcontacted`);
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERV}/api/getcontacted/${pageNo}`);
 
       dispatch(setPeopleContactedData(res.data));
 
