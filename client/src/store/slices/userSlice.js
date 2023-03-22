@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: []
+  data: null
 };
 
 export const userSlice = createSlice({
@@ -10,7 +10,17 @@ export const userSlice = createSlice({
   reducers: {
 
     setUserData: (state, action) => {
-      state.data = [...action.payload];
+
+      if (state.data && state.data.docs) {
+        if (state.data.page !== action.payload.page) {
+          const previousDocs = state.data.docs;
+          state.data = action.payload;
+          state.data.docs = [...previousDocs, ...action.payload.docs];
+        }
+      } else {
+        state.data = action.payload;
+      }
+
     }
   }
 });

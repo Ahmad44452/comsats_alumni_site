@@ -1,22 +1,39 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import * as StyledAlumni from '../../Styles/AlumniPanel.styled';
 import useLoading from '../../hooks/useLoading';
 import { setDataAlumni, signOutAlumni } from '../../store/slices/alumniSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { AiOutlineDown } from 'react-icons/ai';
+import DatePicker from 'react-date-picker/dist/entry.nostyle';
+import './styles.css';
 
 const AlumniPanelSubmitInfo = () => {
 
+  const departmentsList = ['BAF', 'BBA', 'BBC', 'BCS', 'BEE', 'BEN', 'BME', 'BSE', 'BSI', 'CVE', 'FSN', 'MB4', 'RBS', 'RCS', 'RMM', 'RMS', 'RMT'];
+
+  const currentYear = new Date().getFullYear() % 100;
+  const allBatches = ['FA17'];
+  for (let startYear = 18; startYear < currentYear; startYear++) {
+    allBatches.push(`SP${startYear}`)
+    allBatches.push(`FA${startYear}`)
+  }
+
+  // const [selectedBatch, setSelectedBatch] = useState(batches[0]);
+
+  const [isDepartmentDropboxVisible, setDepartmentDropboxVisible] = useState(false);
+  const [isBatchesDropboxVisible, setBatchesDropboxVisible] = useState(false);
+
   const [name, setName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
-  const [department, setDepartment] = useState('');
+  const [department, setDepartment] = useState(departmentsList[0]);
+  const [batch, setBatch] = useState(allBatches[0]);
   const [email, setEmail] = useState('');
   const [sector, setSector] = useState('');
   const [supervisorName, setSupervisorName] = useState('');
   const [officeEmail, setOfficeEmail] = useState('');
-  const [graduationYear, setGraduationYear] = useState('');
   const [positionHeld, setPositionHeld] = useState('');
-  const [dateOfJoining, setDateOfJoining] = useState('');
+  const [dateOfJoining, setDateOfJoining] = useState(new Date());
   const [organizationName, setOrganizationName] = useState('');
   const [supervisorPosition, setSupervisorPosition] = useState('');
   const [countryName, setCountryName] = useState('');
@@ -28,9 +45,9 @@ const AlumniPanelSubmitInfo = () => {
   const sectorRef = useRef();
   const supervisorNameRef = useRef();
   const officeEmailRef = useRef();
-  const graduationYearRef = useRef();
+  // const graduationYearRef = useRef();
   const positionHeldRef = useRef();
-  const dateOfJoiningRef = useRef();
+  // const dateOfJoiningRef = useRef();
   const organizationNameRef = useRef();
   const supervisorPositionRef = useRef();
   const countryNameRef = useRef();
@@ -58,7 +75,7 @@ const AlumniPanelSubmitInfo = () => {
         sector,
         supervisorName,
         officeEmail,
-        graduationYear,
+        batch,
         positionHeld,
         dateOfJoining,
         organizationName,
@@ -89,20 +106,38 @@ const AlumniPanelSubmitInfo = () => {
   }
 
   useEffect(() => {
+
     nameRef.current.value = alumniData.name;
     contactNumberRef.current.value = alumniData.contactNumber;
-    departmentRef.current.value = alumniData.department;
+    setDepartment(prev => alumniData.department || prev);
+    setBatch(prev => alumniData.batch || prev);
+    if (alumniData.dateOfJoining) {
+      setDateOfJoining(new Date(alumniData.dateOfJoining));
+    }
+    // departmentRef.current.value = alumniData.department;
     emailRef.current.value = alumniData.email;
     sectorRef.current.value = alumniData.sector;
     supervisorNameRef.current.value = alumniData.supervisorName;
     officeEmailRef.current.value = alumniData.officeEmail;
-    graduationYearRef.current.value = alumniData.graduationYear;
+    // graduationYearRef.current.value = alumniData.graduationYear;
     positionHeldRef.current.value = alumniData.positionHeld;
-    dateOfJoiningRef.current.value = alumniData.dateOfJoining;
+    // dateOfJoiningRef.current.value = alumniData.dateOfJoining;
     organizationNameRef.current.value = alumniData.organizationName;
     supervisorPositionRef.current.value = alumniData.supervisorPosition;
     countryNameRef.current.value = alumniData.countryName;
     registrationNumberRef.current.value = alumniData.registrationNumber;
+
+
+    setName(alumniData.name)
+    setContactNumber(alumniData.contactNumber)
+    setEmail(alumniData.email)
+    setSector(alumniData.sector)
+    setSupervisorName(alumniData.supervisorName)
+    setOfficeEmail(alumniData.officeEmail)
+    setPositionHeld(alumniData.positionHeld)
+    setOrganizationName(alumniData.organizationName)
+    setSupervisorPosition(alumniData.supervisorPosition)
+    setCountryName(alumniData.countryName)
   }, [alumniData])
 
   return (
@@ -146,8 +181,8 @@ const AlumniPanelSubmitInfo = () => {
           </StyledAlumni.StyledAdminPanelInputGroup>
 
           <StyledAlumni.StyledAdminPanelInputGroup>
-            <label>Graduation Year</label>
-            <StyledAlumni.StyledAdminPanelInputText type='text' ref={graduationYearRef} placeholder='Enter graduation year' onChange={e => setGraduationYear(e.currentTarget.value)} />
+            <label>Email</label>
+            <StyledAlumni.StyledAdminPanelInputText type='email' ref={emailRef} placeholder='Enter email' onChange={e => setEmail(e.currentTarget.value)} />
           </StyledAlumni.StyledAdminPanelInputGroup>
         </StyledAlumni.StyledAdminPanelInputGroupContainer>
 
@@ -156,25 +191,64 @@ const AlumniPanelSubmitInfo = () => {
         <StyledAlumni.StyledAdminPanelInputGroupContainer>
           <StyledAlumni.StyledAdminPanelInputGroup>
             <label>Department</label>
-            <StyledAlumni.StyledAdminPanelInputText type='text' ref={departmentRef} placeholder='Enter department' onChange={e => setDepartment(e.currentTarget.value)} />
+
+            <StyledAlumni.StyledAlumniDropbox>
+              <StyledAlumni.StyledAlumniDropboxContent onClick={() => setDepartmentDropboxVisible(prev => !prev)}>
+                <p>{department}</p>
+                <span>
+                  <AiOutlineDown />
+                </span>
+              </StyledAlumni.StyledAlumniDropboxContent>
+              {
+                isDepartmentDropboxVisible && <StyledAlumni.StyledAlumniDropboxOptions>
+                  <ul>
+                    {departmentsList.map((item, i) => <li key={i} onClick={() => { setDepartment(item); setDepartmentDropboxVisible(false) }}>{item}</li>)}
+                  </ul>
+                </StyledAlumni.StyledAlumniDropboxOptions>
+              }
+
+            </StyledAlumni.StyledAlumniDropbox>
+
+            {/* <StyledAlumni.StyledAdminPanelInputText type='text' ref={departmentRef} placeholder='Enter department' onChange={e => setDepartment(e.currentTarget.value)} /> */}
           </StyledAlumni.StyledAdminPanelInputGroup>
 
           <StyledAlumni.StyledAdminPanelInputGroup>
-            <label>Position Held</label>
-            <StyledAlumni.StyledAdminPanelInputText type='text' ref={positionHeldRef} placeholder='Enter position held' onChange={e => setPositionHeld(e.currentTarget.value)} />
+            <label>Batch</label>
+
+            <StyledAlumni.StyledAlumniDropbox>
+              <StyledAlumni.StyledAlumniDropboxContent onClick={() => setBatchesDropboxVisible(prev => !prev)}>
+                <p>{batch}</p>
+                <span>
+                  <AiOutlineDown />
+                </span>
+              </StyledAlumni.StyledAlumniDropboxContent>
+              {
+                isBatchesDropboxVisible && <StyledAlumni.StyledAlumniDropboxOptions>
+                  <ul>
+                    {allBatches.map((item, i) => <li key={i} onClick={() => { setBatch(item); setBatchesDropboxVisible(false) }}>{item}</li>)}
+                  </ul>
+                </StyledAlumni.StyledAlumniDropboxOptions>
+              }
+
+            </StyledAlumni.StyledAlumniDropbox>
           </StyledAlumni.StyledAdminPanelInputGroup>
         </StyledAlumni.StyledAdminPanelInputGroupContainer>
 
 
         <StyledAlumni.StyledAdminPanelInputGroupContainer>
           <StyledAlumni.StyledAdminPanelInputGroup>
-            <label>Email</label>
-            <StyledAlumni.StyledAdminPanelInputText type='email' ref={emailRef} placeholder='Enter email' onChange={e => setEmail(e.currentTarget.value)} />
+            <label>Position Held</label>
+            <StyledAlumni.StyledAdminPanelInputText type='text' ref={positionHeldRef} placeholder='Enter position held' onChange={e => setPositionHeld(e.currentTarget.value)} />
           </StyledAlumni.StyledAdminPanelInputGroup>
 
-          <StyledAlumni.StyledAdminPanelInputGroup>
+          {/* <StyledAlumni.StyledAdminPanelInputGroup>
             <label>Date Of Joining</label>
             <StyledAlumni.StyledAdminPanelInputText type='text' ref={dateOfJoiningRef} placeholder='Enter date of joining' onChange={e => setDateOfJoining(e.currentTarget.value)} />
+          </StyledAlumni.StyledAdminPanelInputGroup> */}
+          <StyledAlumni.StyledAdminPanelInputGroup>
+            <label>Date Of Joining</label>
+            <DatePicker onChange={setDateOfJoining} value={dateOfJoining} clearIcon={null} className='date-picker' />
+            {/* <StyledAlumni.StyledAdminPanelInputText type='text' ref={departmentRef} placeholder='Enter department' onChange={e => setDepartment(e.currentTarget.value)} /> */}
           </StyledAlumni.StyledAdminPanelInputGroup>
         </StyledAlumni.StyledAdminPanelInputGroupContainer>
 

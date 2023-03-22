@@ -15,20 +15,24 @@ const Home = () => {
     governmentEmployees: 0,
     seniorManagement: 0
   });
+  const [events, setEvents] = useState(null);
   const setGlobalLoading = useLoading();
 
   useEffect(() => {
-
-
 
     if (statsInfo.passedOut === 0) {
       (async () => {
         try {
           setGlobalLoading(true);
           const res = await axios.get(`${process.env.REACT_APP_BACKEND_SERV}/api/getstats`);
+          const events = await axios.get(`${process.env.REACT_APP_BACKEND_SERV}/img/getevents`);
 
           if (res.data) {
             setStatsInfo(res.data);
+          }
+
+          if (events.data) {
+            setEvents(events.data)
           }
 
           setGlobalLoading(false);
@@ -130,8 +134,29 @@ const Home = () => {
         <h2>Upcoming Events</h2>
 
         <StyledComponents.StyledHomeEventsContainer>
+          {
+            events && events.map(event => (
+              <StyledComponents.StyledHomeEventsBlock key={event._id}>
+                <img src={event.image} alt='' />
+                <StyledComponents.StyledHomeEventDescription>
+                  <StyledComponents.StyledHomeEventInfo>
+                    <h3>{event.name}</h3>
+                    <div>{event.description}</div>
+                    <span>
+                      <p><ImLocation2 /><span>{event.location}</span></p>
+                      <p><ImCalendar /><span>{event.timing}</span></p>
+                    </span>
+                  </StyledComponents.StyledHomeEventInfo>
 
-          <StyledComponents.StyledHomeEventsBlock>
+                </StyledComponents.StyledHomeEventDescription>
+
+              </StyledComponents.StyledHomeEventsBlock>
+            ))
+          }
+
+
+
+          {/* <StyledComponents.StyledHomeEventsBlock>
             <img src='https://static.wixstatic.com/media/a3c153_ad9134e220794c6c86289255b9382644~mv2.png/v1/fill/w_310,h_282,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/pierre-chatel-innocenti-Lk-nu_hX6ms-unsp.png'
               alt='' />
             <StyledComponents.StyledHomeEventDescription>
@@ -144,53 +169,7 @@ const Home = () => {
 
             </StyledComponents.StyledHomeEventDescription>
 
-          </StyledComponents.StyledHomeEventsBlock>
-
-          <StyledComponents.StyledHomeEventsBlock>
-            <img src='https://static.wixstatic.com/media/a3c153_ad9134e220794c6c86289255b9382644~mv2.png/v1/fill/w_310,h_282,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/pierre-chatel-innocenti-Lk-nu_hX6ms-unsp.png'
-              alt='' />
-            <StyledComponents.StyledHomeEventDescription>
-              <StyledComponents.StyledHomeEventInfo>
-                <h3>Event Name</h3>
-                <div>Write the description of event here. What the event is about and everything related to it</div>
-                <p><ImLocation2 /><span>COMSATS Auditorium</span></p>
-                <p><ImCalendar /><span>30 December 2022</span></p>
-              </StyledComponents.StyledHomeEventInfo>
-
-            </StyledComponents.StyledHomeEventDescription>
-
-          </StyledComponents.StyledHomeEventsBlock>
-
-          <StyledComponents.StyledHomeEventsBlock>
-            <img src='https://static.wixstatic.com/media/a3c153_ad9134e220794c6c86289255b9382644~mv2.png/v1/fill/w_310,h_282,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/pierre-chatel-innocenti-Lk-nu_hX6ms-unsp.png'
-              alt='' />
-
-            <StyledComponents.StyledHomeEventDescription>
-              <StyledComponents.StyledHomeEventInfo>
-                <h3>Event Name</h3>
-                <div>Write the description of event here. What the event is about and everything related to it</div>
-                <p><ImLocation2 /><span>COMSATS Auditorium</span></p>
-                <p><ImCalendar /><span>30 December 2022</span></p>
-              </StyledComponents.StyledHomeEventInfo>
-
-            </StyledComponents.StyledHomeEventDescription>
-
-          </StyledComponents.StyledHomeEventsBlock>
-
-          <StyledComponents.StyledHomeEventsBlock>
-            <img src='https://static.wixstatic.com/media/a3c153_ad9134e220794c6c86289255b9382644~mv2.png/v1/fill/w_310,h_282,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/pierre-chatel-innocenti-Lk-nu_hX6ms-unsp.png'
-              alt='' />
-            <StyledComponents.StyledHomeEventDescription>
-              <StyledComponents.StyledHomeEventInfo>
-                <h3>Event Name</h3>
-                <div>Write the description of event here. What the event is about and everything related to it</div>
-                <p><ImLocation2 /><span>COMSATS Auditorium</span></p>
-                <p><ImCalendar /><span>30 December 2022</span></p>
-              </StyledComponents.StyledHomeEventInfo>
-
-            </StyledComponents.StyledHomeEventDescription>
-
-          </StyledComponents.StyledHomeEventsBlock>
+          </StyledComponents.StyledHomeEventsBlock> */}
 
         </StyledComponents.StyledHomeEventsContainer>
 

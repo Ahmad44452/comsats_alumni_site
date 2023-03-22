@@ -2,14 +2,15 @@ import * as StyledSubmittedDetails from '../../Styles/SubmittedDetails/Submitted
 import { useSelector, useDispatch } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { AiFillEye } from 'react-icons/ai';
-import { GrAdd } from 'react-icons/gr';
 import { useEffect, useState } from 'react';
 
-
+import { StyledLoadMoreButton } from '../../Styles/Button.styled';
 import AdminPanelDeletePopup from './SubmittedDetailsDeletePopup';
 import AdminPanelShowStudentInfo from './SubmittedDetailsShowStudentInfo';
 
 import { loadAllAlumnisApi } from '../../store/api/adminApi';
+
+import useLoading from '../../hooks/useLoading';
 
 const SubmittedDetails = () => {
 
@@ -22,12 +23,19 @@ const SubmittedDetails = () => {
   const [isShowInfoPopupShowing, setShowInfoPopupShowing] = useState(false);
   const [showInfoObjId, setShowInfoObjId] = useState(null);
 
+  const setGlobalLoading = useLoading();
   const dispatch = useDispatch();
 
+  const fetchAlumniSubmittedInfo = (pageNo) => {
+    setGlobalLoading(true);
+    dispatch(loadAllAlumnisApi(pageNo)).then(() => setGlobalLoading(false))
+  }
+
   useEffect(() => {
-    if (alumnisSlice && alumnisSlice.data.length === 0) {
-      dispatch(loadAllAlumnisApi());
+    if (alumnisSlice && alumnisSlice.data === null) {
+      fetchAlumniSubmittedInfo(1)
     }
+
   }, [dispatch, alumnisSlice]);
 
 
@@ -55,7 +63,7 @@ const SubmittedDetails = () => {
           <tbody>
 
             {
-              alumnisSlice.data.map(item => (
+              alumnisSlice && alumnisSlice.data && alumnisSlice.data.docs.map(item => (
                 <tr key={item._id}>
                   <td>{item.registrationNumber}</td>
                   <td>{item.password}</td>
@@ -75,6 +83,12 @@ const SubmittedDetails = () => {
           </tbody>
 
         </StyledSubmittedDetails.SubmittedDetailsTable>
+
+        {
+          alumnisSlice && alumnisSlice.data && alumnisSlice.data.hasNextPage && <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+            <StyledLoadMoreButton onClick={() => fetchAlumniSubmittedInfo(alumnisSlice.data.page + 1)}>Load More</StyledLoadMoreButton>
+          </div>
+        }
 
         {
           isDelPopupShowing && <AdminPanelDeletePopup setIsDelPopupShowing={setIsDelPopupShowing} setDelUserObjId={setDelUserObjId} delUserObjId={delUserObjId} />

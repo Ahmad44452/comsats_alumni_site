@@ -166,7 +166,7 @@ export const StyledHomeEventsBlock = styled.div`
   height: 28rem;
 
   img{
-    width: 100%;
+    width: 50%;
     height: 100%;
     object-fit: cover;
     object-position: center center;
@@ -179,7 +179,13 @@ export const StyledHomeEventDescription = styled.div`
   padding: 3rem 2rem;
 `;
 
+
 export const StyledHomeEventInfo = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
   h3{
     font-size: 3rem;
   }
@@ -187,19 +193,26 @@ export const StyledHomeEventInfo = styled.div`
   div{
     font-size: 1.8rem;
     font-weight: 300;
-    margin: 3.5rem 0;
+    
   }
 
-  p{
-    display: flex;
-    align-items: center;
-    font-size: 1.8rem;
-    font-weight: 300;
-    margin-top: .8rem;
+  span{
+    p{
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 300;
 
-    span{
-      margin-left: .6rem;
+      &:not(:last-child){
+        margin-bottom: 2px;
+      }
+    
+
+      span{
+        margin-left: .6rem;
+      }
     }
   }
-`;
 
+  
+`;

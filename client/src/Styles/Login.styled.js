@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 
 export const LoginStyled = styled.div`
@@ -13,7 +14,7 @@ export const LoginStyled = styled.div`
 export const LoginStyledContainer = styled.div`
   background-color: auto;
   border-radius: 5px;
-  padding: 4rem 3rem;
+  padding: 4rem 3rem 3rem 3rem;
   text-align: center;
   background-color: #162b6f;
 
@@ -107,4 +108,19 @@ export const LoginStyledOptionButtons = styled.div`
     }
   }
 `;
+
+export const ForgotPassword = styled(Link)`
+  font-size: 1.8rem;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  margin-top: 2rem;
+  color: #fff;;
+
+  &:hover{
+    text-decoration: underline;
+  }
+  
+`
 

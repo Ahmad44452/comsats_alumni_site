@@ -28,7 +28,6 @@ const PeopleContacted = () => {
   const fetchPeopleContacted = (pageNo) => {
     setGlobalLoading(true);
     dispatch(loadAllPeopleContactedApi(pageNo)).then(() => setGlobalLoading(false))
-
   }
 
   useEffect(() => {
@@ -78,7 +77,7 @@ const PeopleContacted = () => {
       </Contacted.Table>
 
       {
-        peopleContactedSlice && peopleContactedSlice.data && peopleContactedSlice.data.hasNextPage && <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+        peopleContactedSlice && peopleContactedSlice.data && peopleContactedSlice.data.hasNextPage && <div style={{ textAlign: 'center', padding: '4rem 0' }}>
           <StyledLoadMoreButton onClick={() => fetchPeopleContacted(peopleContactedSlice.data.page + 1)}>Load More</StyledLoadMoreButton>
         </div>
       }

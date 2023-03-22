@@ -10,6 +10,8 @@ import AdminDashboard from './components/AdminDashboard';
 import AlumniPanel from './components/AlumniPanel'
 import Gallery from './components/Gallery';
 import SelectLoginType from './components/SelectLoginType';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 
 const AppRoutes = () => {
@@ -28,6 +30,8 @@ const AppRoutes = () => {
         <Route path='/login' element={(alumniAuth && (<Navigate to='/alumnipanel' replace={true} />)) || (adminAuth && (<Navigate to='/adminpanel' replace={true} />)) || (<SelectLoginType />)} />
         <Route path='/adminpanel' element={(adminAuth && <AdminDashboard />) || (!adminAuth && <Navigate to='/login' replace={true} />)} />
         <Route path='/alumnipanel' element={(alumniAuth && <AlumniPanel />) || (!alumniAuth && <Navigate to='/login' replace={true} />)} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
+        <Route path='/passwordreset/:id' element={<ResetPassword />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
 

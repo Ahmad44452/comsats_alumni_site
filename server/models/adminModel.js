@@ -37,26 +37,8 @@ const adminSchema = new mongoose.Schema({
   }
 })
 
-// adminSchema.pre("save", async function (next) {
-//   let user = this;
-//   if (user.isModified('password')) {
-//     const salt = await bcrypt.genSalt(10);
-//     const hash = await bcrypt.hash(user.password, salt);
-//     user.password = hash;
-//   }
-//   next();
-// })
-
-// adminSchema.methods.generateToken = function () {
-//   let user = this;
-//   const userObj = { _id: user._id.toHexString(), email: user.email };
-//   const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1d' });
-//   return token;
-// }
-
 adminSchema.methods.comparePassword = async function (enteredPassword) {
   let user = this;
-  // const match = await bcrypt.compare(enteredPassword, user.password);
   const match = enteredPassword === user.password;
   return match;
 }

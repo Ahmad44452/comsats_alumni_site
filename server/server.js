@@ -28,7 +28,7 @@ mongoose.connect(mongoUri, {
 //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
 var corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.FRONTEND_URI,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(express.json({ limit: "25mb" }));

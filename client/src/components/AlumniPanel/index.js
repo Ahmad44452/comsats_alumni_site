@@ -4,10 +4,11 @@ import { useSelector } from "react-redux";
 
 const AdminPanel = () => {
 
-  const isPasswordComputerGenerated = useSelector(state => state.alumniSlice.data.isPasswordComputerGenerated)
+  const isPasswordComputerGenerated = useSelector(state => state.alumniSlice.data.isPasswordComputerGenerated);
+
 
   return (
-    isPasswordComputerGenerated ? <AlumniPanelChangePass /> : <AlumniPanelSubmitInfo />
+    <AlumniPanelSubmitInfo />
   )
 }
 

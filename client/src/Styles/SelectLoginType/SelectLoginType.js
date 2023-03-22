@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
 export const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+export const Container = styled.div`
+  flex-grow: 1;
   background-color: #142e84;
   color: #fff;
-  min-height: 65rem;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
 `;
@@ -13,15 +18,15 @@ export const Heading = styled.h2`
   font-family: 'oswal',sans-serif;
   font-size: 6rem;
   text-align: center;
+  padding-top: 2rem;
 `;
 
 export const ButtonContainer = styled.div`
+  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
   column-gap: 2rem;
-  padding: 20rem 0;
 `;
 
 export const Button = styled.div`

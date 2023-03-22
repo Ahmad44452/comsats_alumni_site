@@ -156,6 +156,7 @@ export const StyledAlumniPanelHeaderButton = styled.button`
   }
 `;
 
+
 export const StyledAdminPanelHeading = styled.h1`
   color: #fff;
   text-align: center;
@@ -184,4 +185,57 @@ export const StyledAdminPanelSuccess = styled.p`
   text-align: center;
   color: green;
   font-size: 2rem;
+`;
+
+export const StyledAlumniDropbox = styled.div`
+  width: 55rem;
+  position: relative;
+`;
+
+export const StyledAlumniDropboxContent = styled.div`
+  background-color: transparent;
+  border-bottom: 1px solid #fff;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  cursor: pointer;
+
+  span{
+    cursor: pointer;
+    line-height: 0;
+    
+    svg{
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+`;
+
+export const StyledAlumniDropboxOptions = styled.div`
+  font-size: 1.8rem;
+  border: 1px solid #fff;
+  border-top: none;
+  max-height: 28rem;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #142e84;
+
+  ul{
+    list-style: none;
+    
+    li{
+      padding: 1rem 2rem;
+
+      &:hover{
+        background: #0c1c51;
+        cursor: pointer;
+      }
+    }
+  }
 `;

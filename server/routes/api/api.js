@@ -1,3 +1,5 @@
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 const express = require('express');
 let router = express.Router();
 
@@ -8,6 +10,88 @@ const { Admin } = require("../../models/adminModel");
 const { User } = require('../../models/userModel');
 const { Stats } = require('../../models/statsModel');
 const { ContactUs } = require('../../models/contactModel');
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    type: 'OAuth2',
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD,
+    clientId: process.env.OAUTH_CLIENTID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN
+  }
+})
+
+
+router.route('/sendresetpasswordmail').post(async (req, res) => {
+  try {
+    const registrationNumber = req.body.registrationNumber;
+
+    const user = await User.findOne({ registrationNumber: registrationNumber });
+
+    if (!user)
+      return res.status(400).json({ message: "No user found!" });
+
+    if (!user.password)
+      return res.status(400).json({ message: "Register first!" });
+
+    if (!user.email)
+      return res.status(400).json({ message: "No email has been assigned to this account!" });
+
+
+    const info = await transporter.sendMail({
+      from: process.env.NODEMAILER_EMAIL,
+      to: user.email,
+      subject: "Reset password",
+      text: "Reset password",
+      html: `<h1>Reset Password</h1>
+      <p>Please click the following link to reset your password:</p>
+      <a href="${process.env.FRONTEND_URI}/passwordreset/${user._id}">Reset Password</a>`
+    });
+
+    const censorWord = (str) => {
+      return str[0] + "*".repeat(str.length - 2) + str.slice(-1);
+    }
+
+    const censorEmail = (email) => {
+      var arr = email.split("@");
+      return censorWord(arr[0]) + "@" + censorWord(arr[1]);
+    }
+
+    const censoredMail = censorEmail(user.email);
+
+
+    return res.status(200).json(`Email sent to ${censoredMail}. Please check your inbox or spam folder!`);
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+});
+
+router.route("/resetpass").post(async (req, res) => {
+  try {
+
+    const user = await User.findById(req.body.id);
+
+    if (!user)
+      return res.status(400).json({ message: "Invalid link" });
+
+    user.password = req.body.newPassword;
+    await user.save();
+
+    return res.status(200).json("Your password has been updated!");
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+});
 
 router.route("/register").post(async (req, res) => {
   try {
@@ -35,20 +119,71 @@ router.route("/register").post(async (req, res) => {
   }
 });
 
-router.route("/addalumni").post(async (req, res) => {
+router.route("/gethods").get(async (req, res) => {
   try {
 
-    if (await User.isRegistrationNumberTaken(req.body.registrationNumber)) {
-      return res.status(400).json({ message: "This registration number is already taken!" });
-    }
+    const hods = await Admin.find({ role: 'HOD' })
+    // const alumnis = await User.find();
 
-    // Create User
-    const user = new User({
-      registrationNumber: req.body.registrationNumber,
-      password: req.body.password
+    return res.status(200).json(hods);
+
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+});
+
+router.route("/getadmins").get(async (req, res) => {
+  try {
+
+    const hods = await Admin.find({ role: 'Admin' })
+    // const alumnis = await User.find();
+
+    return res.status(200).json(hods);
+
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+});
+
+router.route('/deleteadmin').delete(async (req, res) => {
+  try {
+
+    const deletedAdmin = await Admin.deleteOne({ _id: req.body._id });
+
+    return res.status(200).json(deletedAdmin);
+  } catch (error) {
+    return res.status(400).json({
+      message: "Error",
+      error: error
     });
+  }
+});
 
-    const doc = await user.save();
+router.route("/alumnisignup").post(async (req, res) => {
+  try {
+
+    const foundAlumni = await User.findOne({ registrationNumber: req.body.registrationNumber })
+
+    if (!foundAlumni)
+      return res.status(400).json({ message: "Registration number does not exist." });
+
+    if (foundAlumni.password)
+      return res.status(400).json({ message: "User already exists. Please login." });
+
+    if (foundAlumni.cnic !== req.body.cnic)
+      return res.status(400).json({ message: "Wrong information entered." });
+
+    foundAlumni.password = req.body.password;
+
+    const doc = await foundAlumni.save();
 
     return res.status(200).json(doc);
   } catch (error) {
@@ -60,10 +195,42 @@ router.route("/addalumni").post(async (req, res) => {
   }
 });
 
-router.route("/getalumni").get(async (req, res) => {
+router.route("/batchalumniupload").post(async (req, res) => {
   try {
 
-    const alumnis = await User.find();
+    const data = req.body.data;
+
+    for (let i = 0; i < data.length; i++) {
+      let currentAlumni = await User.findOne({ registrationNumber: data[i].registrationNumber });
+
+      if (!currentAlumni) {
+        // create new alumni
+        const user = new User(data[i]);
+        await user.save();
+      } else {
+        // currentAlumni = item;
+        // await currentAlumni.save();
+        await currentAlumni.updateOne(data[i])
+      }
+    }
+
+    return res.status(200).json("Data updated");
+
+  } catch (error) {
+
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+})
+
+router.route("/getalumni/:pageno").get(async (req, res) => {
+  try {
+
+    var myAggregate = User.aggregate()
+    const alumnis = await User.aggregatePaginate(myAggregate, { page: req.params.pageno || 1, limit: 10 })
+    // const alumnis = await User.find();
 
     return res.status(200).json(alumnis);
 
@@ -221,9 +388,7 @@ router.route("/submitcontactus").post(async (req, res) => {
 router.route("/getcontacted/:pageno").get(async (req, res) => {
   try {
     var myAggregate = ContactUs.aggregate()
-    const peopleContacted = await ContactUs.aggregatePaginate(myAggregate, { page: req.params.pageno || 1, limit: 10 })
-    // offset property to skip
-    // const peopleContacted = await ContactUs.find();
+    const peopleContacted = await ContactUs.aggregatePaginate(myAggregate, { page: req.params.pageno || 1, limit: 10, sort: { _id: 'desc' } })
 
     return res.status(200).json(peopleContacted);
 

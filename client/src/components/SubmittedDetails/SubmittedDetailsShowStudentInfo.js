@@ -104,8 +104,8 @@ const AdminPanelShowStudentInfo = ({ setShowInfoPopupShowing, setShowInfoObjId, 
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
-                <StyledShow.SubmittedDetailsShowInfoLabel>Graduation Year:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.graduationYear}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoLabel>Batch:</StyledShow.SubmittedDetailsShowInfoLabel>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.batch}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
@@ -115,7 +115,7 @@ const AdminPanelShowStudentInfo = ({ setShowInfoPopupShowing, setShowInfoObjId, 
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Date of Joining:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.dateOfJoining}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{new Date(alumniInfo.dateOfJoining).toLocaleDateString()}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>

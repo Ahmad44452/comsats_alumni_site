@@ -11,9 +11,9 @@ const SelectLoginType = () => {
   return (
 
     loginType ? <Login loginType={loginType} /> :
-      <>
+      <Styled.Section>
         <Navbar />
-        <Styled.Section>
+        <Styled.Container>
           <Styled.Heading>Select Login</Styled.Heading>
           <Styled.ButtonContainer>
 
@@ -24,9 +24,9 @@ const SelectLoginType = () => {
             <Styled.Button onClick={() => setLoginType('HOD')}>HOD<br />Login</Styled.Button>
 
           </Styled.ButtonContainer>
-        </Styled.Section>
+        </Styled.Container>
         <Footer />
-      </>
+      </Styled.Section>
   )
 }
 

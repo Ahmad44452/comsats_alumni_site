@@ -11,6 +11,7 @@ const Login = ({ loginType }) => {
 
   // const [loginType, setLoginType] = useState('Alumni');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
   const setGlobalLoading = useLoading();
@@ -21,15 +22,25 @@ const Login = ({ loginType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setError(null);
-
       setGlobalLoading(true);
 
-      if (loginType === 'Alumni') {
+      if (loginType === 'AlumniSignup') {
+        if (password !== confirmPassword) {
+          setError("Both passwords should be same");
+          setGlobalLoading(false);
+          return;
+        }
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/alumnisignup`, { registrationNumber: email, password, cnic });
+        dispatch(setDataAlumni(res.data));
+      }
+      else if (loginType === 'AlumniLogin') {
         const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/alumnilogin`, { registrationNumber: email, password });
         dispatch(setDataAlumni(res.data));
       } else {
+
         const res = await axios.post(`${process.env.REACT_APP_BACKEND_SERV}/api/adminlogin`, { email, password, loginType: loginType });
         dispatch(setDataAdmin(res.data));
       }
@@ -54,7 +65,7 @@ const Login = ({ loginType }) => {
         <LoginStyled.LoginStyledComsatsLogo src='./images/COMSATS-LOGO.png' />
         {
           loginType === "AlumniLogin" ? (<h2>Alumni Login</h2>) : (
-            loginType === "AlumniSignup" ? <h2>Alumni SignUp</h2> : <h2>{loginType} Login</h2>
+            loginType === "AlumniSignup" ? <h2>Alumni Sign Up</h2> : <h2>{loginType} Login</h2>
           )
         }
 
@@ -64,10 +75,12 @@ const Login = ({ loginType }) => {
         <h2>{loginType} Login</h2> */}
         <form onSubmit={handleSubmit}>
           {
+
             loginType === 'AlumniSignup' ? <>
               <LoginStyled.LoginStyledInput type="text" placeholder="Registration Number" required onChange={(e) => setEmail(e.currentTarget.value)} />
-              <LoginStyled.LoginStyledInput type="text" placeholder="CNIC Number" required onChange={(e) => setCnic(e.currentTarget.value)} />
+              <LoginStyled.LoginStyledInput type="text" placeholder="CNIC Number (without hyphens)" minLength={13} maxLength={13} required onChange={(e) => setCnic(e.currentTarget.value)} />
               <LoginStyled.LoginStyledInput type="password" placeholder="Password" required onChange={(e) => setPassword(e.currentTarget.value)} />
+              <LoginStyled.LoginStyledInput type="password" placeholder="Confirm Password" required onChange={(e) => setConfirmPassword(e.currentTarget.value)} />
             </> : (
               <>
                 <LoginStyled.LoginStyledInput type={loginType === 'AlumniLogin' ? "text" : "email"} placeholder={loginType === 'AlumniLogin' ? "Registration Number" : "Email"} required onChange={(e) => setEmail(e.currentTarget.value)} />
@@ -77,10 +90,16 @@ const Login = ({ loginType }) => {
           }
 
 
+
           <div style={{ fontSize: '1.5rem', color: 'red' }} >{error}</div>
           <LoginStyled.LoginStyledSubmitButton type="submit">
-            Login
+            {
+              loginType === "AlumniSignup" ? "Sign Up" : "Login"
+            }
           </LoginStyled.LoginStyledSubmitButton>
+          {
+            loginType === "AlumniLogin" ? <LoginStyled.ForgotPassword to='/forgotpassword'>Forgot password?</LoginStyled.ForgotPassword> : null
+          }
         </form>
 
         {/* <LoginStyled.LoginStyledOptionButtons>
