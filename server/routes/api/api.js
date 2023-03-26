@@ -128,6 +128,71 @@ router.route("/gethods").get(async (req, res) => {
     return res.status(200).json(hods);
 
   } catch (error) {
+    return res.status(400).json({
+      message: "Error",
+      error: error
+    })
+  }
+});
+
+router.route("/getstatistics").get(async (req, res) => {
+  try {
+
+
+    const allUsers = await User.find();
+
+    const departmentStats = [];
+    const batchStats = [];
+    const employedStats = { name: 'Employement Stats', employed: 0, unemployed: 0 };
+
+    for (let user of allUsers) {
+
+      // GATHER DEPARTMENT VALUES
+      let isFound = false;
+      for (let depStat of departmentStats) {
+        if (depStat.name === user.department) {
+          depStat.value++;
+          isFound = true;
+          break;
+        }
+      }
+
+      if (user.department && !isFound) {
+        departmentStats.push({
+          name: user.department,
+          value: 1
+        })
+      }
+
+      // GATHER BATCH VALUES
+      isFound = false;
+      for (let batchStat of batchStats) {
+        if (batchStat.name === user.batch) {
+          batchStat.value++;
+          isFound = true;
+          break;
+        }
+      }
+
+      if (user.batch && !isFound) {
+        batchStats.push({
+          name: user.batch,
+          value: 1
+        })
+      }
+
+      // EMPLOYED STATS
+      if (user.isEmployed) {
+        employedStats.employed++;
+      } else {
+        employedStats.unemployed++;
+      }
+    }
+
+
+    return res.status(200).json({ departmentStats, batchStats, employedStats: [employedStats] });
+
+  } catch (error) {
     console.log(error)
     return res.status(400).json({
       message: "Error",

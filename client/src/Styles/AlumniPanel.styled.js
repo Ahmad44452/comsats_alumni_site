@@ -27,6 +27,7 @@ export const StyledAdminPanelChangePassHeading = styled.h2`
 
 export const StyledAdminPanelInputGroup = styled.div`
   margin-bottom: 3rem;
+
   label{
     display: block;
     font-size: 1.8rem;
@@ -42,6 +43,7 @@ export const StyledAdminPanelInputGroup = styled.div`
     font-size: 1.8rem;
     padding: 1rem 2rem;
     width: 55rem;
+
     font-family: 'Arial',sans-serif;
 
     &,&:focus{
@@ -101,11 +103,13 @@ export const StyledAdminPanelInputSubmit = styled.input`
   outline: none;
   cursor: pointer;
   width: 100%;
+  max-width: 115rem;
   padding: 1rem;
   font-size: 2rem;
   color: #fff;
   background-color: transparent;
   border: 1px solid #fff;
+  margin-bottom: 3rem;
   transition: all .3s;
 
   &:hover{
@@ -167,7 +171,7 @@ export const StyledAdminPanelHeading = styled.h1`
 `;
 
 export const StyledAdminPanelInputGroupContainer = styled.div`
-  display: flex;
+  display: ${({ isEmployed }) => isEmployed === false ? 'none' : 'flex'};
   flex-wrap: wrap;
 
   div:first-child{
@@ -188,12 +192,11 @@ export const StyledAdminPanelSuccess = styled.p`
 `;
 
 export const StyledAlumniDropbox = styled.div`
-  width: 55rem;
+  width: ${({ width }) => width || '55rem'};
   position: relative;
 `;
 
 export const StyledAlumniDropboxContent = styled.div`
-  background-color: transparent;
   border-bottom: 1px solid #fff;
   font-size: 1.8rem;
   padding: 1rem 2rem;
@@ -225,6 +228,7 @@ export const StyledAlumniDropboxOptions = styled.div`
   left: 0;
   width: 100%;
   background-color: #142e84;
+  z-index: 50;
 
   ul{
     list-style: none;

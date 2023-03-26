@@ -14,6 +14,7 @@ const AlumniPanelSubmitInfo = () => {
 
   const currentYear = new Date().getFullYear() % 100;
   const allBatches = ['FA17'];
+
   for (let startYear = 18; startYear < currentYear; startYear++) {
     allBatches.push(`SP${startYear}`)
     allBatches.push(`FA${startYear}`)
@@ -22,6 +23,7 @@ const AlumniPanelSubmitInfo = () => {
   // const [selectedBatch, setSelectedBatch] = useState(batches[0]);
 
   const [isDepartmentDropboxVisible, setDepartmentDropboxVisible] = useState(false);
+  const [isEmployedDropboxVisible, setIsEmployedDropboxVisible] = useState(false);
   const [isBatchesDropboxVisible, setBatchesDropboxVisible] = useState(false);
 
   const [name, setName] = useState('');
@@ -29,6 +31,7 @@ const AlumniPanelSubmitInfo = () => {
   const [department, setDepartment] = useState(departmentsList[0]);
   const [batch, setBatch] = useState(allBatches[0]);
   const [email, setEmail] = useState('');
+  const [isEmployed, setIsEmployed] = useState(false);
   const [sector, setSector] = useState('');
   const [supervisorName, setSupervisorName] = useState('');
   const [officeEmail, setOfficeEmail] = useState('');
@@ -72,6 +75,7 @@ const AlumniPanelSubmitInfo = () => {
         contactNumber,
         department,
         email,
+        isEmployed,
         sector,
         supervisorName,
         officeEmail,
@@ -110,6 +114,7 @@ const AlumniPanelSubmitInfo = () => {
     nameRef.current.value = alumniData.name;
     contactNumberRef.current.value = alumniData.contactNumber;
     setDepartment(prev => alumniData.department || prev);
+    setIsEmployed(prev => alumniData.isEmployed || prev);
     setBatch(prev => alumniData.batch || prev);
     if (alumniData.dateOfJoining) {
       setDateOfJoining(new Date(alumniData.dateOfJoining));
@@ -234,8 +239,35 @@ const AlumniPanelSubmitInfo = () => {
           </StyledAlumni.StyledAdminPanelInputGroup>
         </StyledAlumni.StyledAdminPanelInputGroupContainer>
 
-
         <StyledAlumni.StyledAdminPanelInputGroupContainer>
+          <StyledAlumni.StyledAdminPanelInputGroup>
+            <label>Are you employed?</label>
+
+            <StyledAlumni.StyledAlumniDropbox width='115rem'>
+              <StyledAlumni.StyledAlumniDropboxContent onClick={() => setIsEmployedDropboxVisible(prev => !prev)}>
+                <p>{isEmployed ? 'Yes' : 'No'}</p>
+                <span>
+                  <AiOutlineDown />
+                </span>
+              </StyledAlumni.StyledAlumniDropboxContent>
+              {
+                isEmployedDropboxVisible && <StyledAlumni.StyledAlumniDropboxOptions>
+                  <ul>
+                    <li onClick={() => { setIsEmployed(true); setIsEmployedDropboxVisible(false) }}>Yes</li>
+                    <li onClick={() => { setIsEmployed(false); setIsEmployedDropboxVisible(false) }}>No</li>
+
+                  </ul>
+                </StyledAlumni.StyledAlumniDropboxOptions>
+              }
+
+            </StyledAlumni.StyledAlumniDropbox>
+
+            {/* <StyledAlumni.StyledAdminPanelInputText type='text' ref={departmentRef} placeholder='Enter department' onChange={e => setDepartment(e.currentTarget.value)} /> */}
+          </StyledAlumni.StyledAdminPanelInputGroup>
+        </StyledAlumni.StyledAdminPanelInputGroupContainer>
+
+
+        <StyledAlumni.StyledAdminPanelInputGroupContainer isEmployed={isEmployed}>
           <StyledAlumni.StyledAdminPanelInputGroup>
             <label>Position Held</label>
             <StyledAlumni.StyledAdminPanelInputText type='text' ref={positionHeldRef} placeholder='Enter position held' onChange={e => setPositionHeld(e.currentTarget.value)} />
@@ -254,7 +286,7 @@ const AlumniPanelSubmitInfo = () => {
 
 
 
-        <StyledAlumni.StyledAdminPanelInputGroupContainer>
+        <StyledAlumni.StyledAdminPanelInputGroupContainer isEmployed={isEmployed}>
           <StyledAlumni.StyledAdminPanelInputGroup>
             <label>Sector</label>
             <StyledAlumni.StyledAdminPanelInputText type='text' ref={sectorRef} placeholder='Enter sector' onChange={e => setSector(e.currentTarget.value)} />
@@ -267,7 +299,7 @@ const AlumniPanelSubmitInfo = () => {
         </StyledAlumni.StyledAdminPanelInputGroupContainer>
 
 
-        <StyledAlumni.StyledAdminPanelInputGroupContainer>
+        <StyledAlumni.StyledAdminPanelInputGroupContainer isEmployed={isEmployed}>
           <StyledAlumni.StyledAdminPanelInputGroup>
             <label>Supervisor Name</label>
             <StyledAlumni.StyledAdminPanelInputText type='text' ref={supervisorNameRef} placeholder='Enter supervisor name' onChange={e => setSupervisorName(e.currentTarget.value)} />
@@ -279,7 +311,7 @@ const AlumniPanelSubmitInfo = () => {
           </StyledAlumni.StyledAdminPanelInputGroup>
         </StyledAlumni.StyledAdminPanelInputGroupContainer>
 
-        <StyledAlumni.StyledAdminPanelInputGroupContainer>
+        <StyledAlumni.StyledAdminPanelInputGroupContainer isEmployed={isEmployed}>
           <StyledAlumni.StyledAdminPanelInputGroup>
             <label>Office Email</label>
             <StyledAlumni.StyledAdminPanelInputText type='email' ref={officeEmailRef} placeholder='Enter office email' onChange={e => setOfficeEmail(e.currentTarget.value)} />
@@ -290,6 +322,10 @@ const AlumniPanelSubmitInfo = () => {
             <StyledAlumni.StyledAdminPanelInputText type='text' ref={countryNameRef} placeholder='Enter country name' onChange={e => setCountryName(e.currentTarget.value)} />
           </StyledAlumni.StyledAdminPanelInputGroup>
         </StyledAlumni.StyledAdminPanelInputGroupContainer>
+
+
+
+
 
         <StyledAlumni.StyledAdminPanelError>
           {error}

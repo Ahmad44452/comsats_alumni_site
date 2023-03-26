@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
       }
     }
   },
+  isEmployed: {
+    type: Boolean,
+    default: false
+  },
   sector: {
     type: String,
     trim: true

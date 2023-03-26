@@ -60,77 +60,77 @@ const AdminPanelShowStudentInfo = ({ setShowInfoPopupShowing, setShowInfoObjId, 
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Name:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.name}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.name || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Registration Number:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.registrationNumber}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.registrationNumber || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Password:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.password}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.password || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Department:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.department}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.department || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Email:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.email}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.email || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Sector:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.sector}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.sector || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Supervisor Name:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.supervisorName}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.supervisorName || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Office Email:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.officeEmail}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.officeEmail || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Contact Number:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.contactNumber}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.contactNumber || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Batch:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.batch}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.batch || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Position Held:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.positionHeld}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.positionHeld || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Date of Joining:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{new Date(alumniInfo.dateOfJoining).toLocaleDateString()}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{new Date(alumniInfo.dateOfJoining).toLocaleDateString() || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Organization Name:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.organizationName}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.organizationName || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Supervisor Position:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.supervisorPosition}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.supervisorPosition || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
               <StyledShow.SubmittedDetailsShowInfoGroup>
                 <StyledShow.SubmittedDetailsShowInfoLabel>Country Name:</StyledShow.SubmittedDetailsShowInfoLabel>
-                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.countryName}</StyledShow.SubmittedDetailsShowInfoText>
+                <StyledShow.SubmittedDetailsShowInfoText>{alumniInfo.countryName || '-'}</StyledShow.SubmittedDetailsShowInfoText>
               </StyledShow.SubmittedDetailsShowInfoGroup>
 
 

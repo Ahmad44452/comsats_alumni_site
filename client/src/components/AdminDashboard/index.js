@@ -11,6 +11,7 @@ import AddData from '../AddData';
 import ManageHOD from '../ManageHOD';
 import ManageAdmins from '../ManageAdmins';
 import ManageEvents from '../ManageEvents';
+import Statistics from '../Statistics';
 
 
 const AdminDashboard = () => {
@@ -28,8 +29,8 @@ const AdminDashboard = () => {
     <>
       <Dashboard.Container>
         <Dashboard.Navigation>
-          <Dashboard.NavigationButton>
-            Graphs
+          <Dashboard.NavigationButton onClick={() => setVisibleComponent('Statistics')}>
+            Statistics
           </Dashboard.NavigationButton>
           <Dashboard.NavigationButton onClick={() => setVisibleComponent('Alumni')}>
             Alumni Detail
@@ -94,6 +95,10 @@ const AdminDashboard = () => {
 
           {
             visibleComponent === 'ManageEvents' ? <ManageEvents /> : null
+          }
+
+          {
+            visibleComponent === 'Statistics' ? <Statistics /> : null
           }
 
         </Dashboard.Content>
