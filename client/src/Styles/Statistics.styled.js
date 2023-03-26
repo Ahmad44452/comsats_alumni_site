@@ -23,10 +23,16 @@ export const Heading = styled.h1`
 
 export const GraphsContainer = styled.div`
   display: flex;
-  
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 `;
 
 export const Graph = styled.div`
+  margin: 3rem 0;
+`;
 
+export const GraphTitle = styled.h3`
+text-align: center;
+  font-size: 2rem;
 `;

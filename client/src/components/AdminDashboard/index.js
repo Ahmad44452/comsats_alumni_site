@@ -18,7 +18,7 @@ const AdminDashboard = () => {
 
   const adminRole = useSelector(state => state.adminSlice.data.role);
   const dispatch = useDispatch();
-  const [visibleComponent, setVisibleComponent] = useState('Alumni')
+  const [visibleComponent, setVisibleComponent] = useState('Statistics')
 
   const logOut = (e) => {
     e.preventDefault();

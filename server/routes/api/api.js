@@ -143,7 +143,7 @@ router.route("/getstatistics").get(async (req, res) => {
 
     const departmentStats = [];
     const batchStats = [];
-    const employedStats = { name: 'Employement Stats', employed: 0, unemployed: 0 };
+    const employedStats = [{ name: 'employed', value: 0 }, { name: 'unemployed', value: 0 }];
 
     for (let user of allUsers) {
 
@@ -183,14 +183,14 @@ router.route("/getstatistics").get(async (req, res) => {
 
       // EMPLOYED STATS
       if (user.isEmployed) {
-        employedStats.employed++;
+        employedStats[0].value++;
       } else {
-        employedStats.unemployed++;
+        employedStats[1].value++;
       }
     }
 
 
-    return res.status(200).json({ departmentStats, batchStats, employedStats: [employedStats] });
+    return res.status(200).json({ departmentStats, batchStats, employedStats });
 
   } catch (error) {
     console.log(error)
@@ -268,6 +268,12 @@ router.route("/batchalumniupload").post(async (req, res) => {
     for (let i = 0; i < data.length; i++) {
       let currentAlumni = await User.findOne({ registrationNumber: data[i].registrationNumber });
 
+      if (data[i].isEmployed && data[i].isEmployed.toLowerCase() === 'yes') {
+        data[i].isEmployed = true;
+      } else {
+        data[i].isEmployed = false;
+      }
+
       if (!currentAlumni) {
         // create new alumni
         const user = new User(data[i]);
@@ -277,6 +283,8 @@ router.route("/batchalumniupload").post(async (req, res) => {
         // await currentAlumni.save();
         await currentAlumni.updateOne(data[i])
       }
+
+
     }
 
     return res.status(200).json("Data updated");
