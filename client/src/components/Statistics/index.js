@@ -14,18 +14,21 @@ import {
   Bar,
 } from "recharts";
 import * as Styled from "../../Styles/Statistics.styled";
+import useLoading from "../../hooks/useLoading";
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const Statistics = () => {
   const [statisticsData, setStatisticsData] = useState(null);
+  const setGlobalLoading = useLoading();
 
   useEffect(() => {
     if (statisticsData === null) {
+      setGlobalLoading(true);
       axios
         .get(`${process.env.REACT_APP_BACKEND_SERV}/api/getstatistics`)
         .then((res) => {
-          console.log(res.data);
+          setGlobalLoading(false);
           setStatisticsData(res.data);
         });
     }
